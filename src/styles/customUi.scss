@@ -1,0 +1,30 @@
+.el-popover {
+  --el-popover-border-radius: var(--el-border-radius-base) !important;
+}
+
+.el-card {
+    --el-card-border-color: var(--el-border-color-light, #ebeef5) !important;
+    --el-card-border-radius: 0px !important;
+    --el-card-padding: 20px !important;
+    --el-card-bg-color: var(--el-color-white) !important;
+}
+
+//表格Table样式
+.el-table {
+  --el-table-header-bg-color: var(--el-color-primary-light-9) !important;
+  --el-table-header-text-color: #000000d9 !important;
+}
+.el-table thead {
+  font-weight: bolder !important;
+}
+
+// 抽屉样式
+.el-drawer__header {
+  margin-bottom: 10px !important;
+  color: var(--el-text-color-primary) !important;
+  font-weight: bold;
+  border-bottom: 1px solid var(--el-border-color-light, #ebeef5) !important;
+  height: 50px;
+  justify-content: center;
+  padding: 5px 10px 0px 20px !important;
+}

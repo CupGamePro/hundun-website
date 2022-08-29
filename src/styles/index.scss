@@ -1,0 +1,23 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #a96ffb,
+    ),
+  ),
+  $border-radius: (
+    'base': 2px,
+  ),
+  $box-shadow: (
+    'light': (
+      0 6px 16px -8px rgba(0,0,0,.08), 0 9px 28px 0 rgba(0,0,0,.05), 0 12px 48px 16px rgba(0,0,0,.03),
+    )
+  )
+);
+
+@import './reset.scss';
+@import './app.scss';
+@import './customUi.scss';
+
+
+@import 'element-plus/theme-chalk/src/index.scss';
+
