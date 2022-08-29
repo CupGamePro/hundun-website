@@ -6,13 +6,13 @@
           <template #default="scope">
             <el-form-item label="" :prop="`${scope.row.uuid}-${col.key}`"
               :rules="rules[`${scope.row.uuid}-${col.key}`]">
-              <el-input v-model="form[`${scope.row.uuid}-${col.key}`]" @change="inputChange" />
+              <el-input v-model="form[`${scope.row.uuid}-${col.key}`]" />
             </el-form-item>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="120">
           <template #default="scope">
-            <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row)">
+            <el-button link size="small" @click.prevent="deleteRow(scope.row)">
               Remove
             </el-button>
           </template>

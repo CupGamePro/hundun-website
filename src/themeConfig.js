@@ -13,10 +13,10 @@ export const ThemeConfig = {
   SlideMenuWidth: 235,
 
   // 侧栏关闭宽度
-  SlideMenuMinWidth: 70,
+  SlideMenuMinWidth: 50,
 
   // 是否显示页签菜单
-  isTagsMenu: false,
+  isTagsMenu: true,
 };
 
 document.title = ThemeConfig.title;

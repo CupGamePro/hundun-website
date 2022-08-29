@@ -1,6 +1,6 @@
 <template>
   <el-drawer v-model="menuDrawer">
-    <template #title>
+    <template #header>
       <h4>新建目录</h4>
     </template>
     <template #default>

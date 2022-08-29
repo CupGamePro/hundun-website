@@ -26,9 +26,9 @@
         </div>
 
         <div class="notice-action-tools">
-          <el-button type="text">标记已读</el-button>
-          <el-button type="text">清空{{ activeName }}</el-button>
-          <el-button type="text">查看更多</el-button>
+          <el-button text>标记已读</el-button>
+          <el-button text>清空{{ activeName }}</el-button>
+          <el-button text>查看更多</el-button>
         </div>
       </div>
     </el-popover>

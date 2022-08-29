@@ -9,7 +9,7 @@
           top: `${ThemeConfig.HeaderHeight}px`,
           minHeight: `calc(100vh - ${ThemeConfig.HeaderHeight}px)`,
           marginLeft: `${!commonStore.isCollapse ? ThemeConfig.SlideMenuWidth : ThemeConfig.SlideMenuMinWidth}px`,
-          width: `calc(100% - ${commonStore.isCollapse ? ThemeConfig.SlideMenuMinWidth : ThemeConfig.SlideMenuWidth}px)`
+          width: `calc(100% - ${commonStore.isCollapse ? 50 : ThemeConfig.SlideMenuWidth}px)`
         }"
       >
         <TagView v-if="ThemeConfig.isTagsMenu"></TagView>

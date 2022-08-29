@@ -5,17 +5,13 @@ const {
   ElementPlusResolver
 } = require('unplugin-vue-components/resolvers')
 const { defineConfig } = require("@vue/cli-service");
+
 module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/',
   productionSourceMap: false,
 
   devServer: {
-    hot: false,
-    historyApiFallback: true,
-    allowedHosts: 'all',
-    port: 3000,
-    open: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',

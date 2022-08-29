@@ -4,7 +4,7 @@
     :style="{
       'height': `100vh`,
       marginTop: `${ThemeConfig.HeaderHeight}px`,
-      'width': `${commonStore.isCollapse ? ThemeConfig.SlideMenuMinWidth : ThemeConfig.SlideMenuWidth}px`
+      'width': `${commonStore.isCollapse ? 50 : ThemeConfig.SlideMenuWidth}px`
     }"
   >
     <el-scrollbar
@@ -56,6 +56,7 @@ const getActiveIndex = () => {
   // location.pathname的值通常为：/main-angular11/app-vue2/page2，我们只取`/app-vue2/page2`
   const pathArr = location.pathname.match(/\/app-.+/) || [location.pathname]
   activeIndex.value = pathArr ? pathArr[0].replace(/\/$/, '') : '/'
+  console.log(activeIndex);
 
   // 去除斜线后缀，如：/app-vue2/ 转换为 /app-vue2
   if (activeIndex.value !== '/') {
@@ -79,21 +80,9 @@ const handleCollapse = () => {
   transition-duration: 0.5s;
   z-index: 99;
 }
-.el-menu {
-  border-right: none;
-}
-.el-menu-vertical {
-  width: 100%;
-}
 .slide-menu-collapse {
   margin-top: 8px;
-  padding-left: 25px;
+  // padding-left: 25px;
   cursor: pointer;
-}
-.special-button-box {
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 </style>
