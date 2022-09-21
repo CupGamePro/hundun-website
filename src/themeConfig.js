@@ -4,7 +4,7 @@ export const ThemeConfig = {
   DangerColor: "#f56c6c",
 
   // title
-  title: "Cup Games",
+  title: "Cup Games Pro",
 
   // 头部栏高度
   HeaderHeight: '48px',
