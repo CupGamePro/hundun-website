@@ -32,16 +32,12 @@
             <template #default="scope">
               <div style="display: flex; justify-content: center;">
                 <el-space>
-                  <Icon
-                    name="Edit"
-                    @click="handleEdit(scope.row)"
-                    :color="ThemeConfig.PrimaryColor"
-                  />
-                  <Icon
-                    name="Delete"
-                    @click="handleDelete(scope.row)"
-                    :color="ThemeConfig.DangerColor"
-                  />
+                  <el-icon @click="handleEdit(scope.row)" :color="ThemeConfig.PrimaryColor">
+                    <Edit />
+                  </el-icon>
+                  <el-icon @click="handleDelete(scope.row)" :color="ThemeConfig.DangerColor">
+                    <Delete />
+                  </el-icon>
                 </el-space>
               </div>
             </template>

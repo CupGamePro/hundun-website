@@ -1,12 +1,12 @@
 <template>
   <div class="header-box-wrap" :style="{
-      height: `${ThemeConfig.HeaderHeight}px`,
-      lineHeight: `${ThemeConfig.HeaderHeight}px`,
+      height: HeaderHeight,
+      lineHeight: HeaderHeight,
     }">
     <div class="header-title" :style="{
-      width: `${ThemeConfig.SlideMenuWidth}px`,
+      width: SlideMenuWidth,
     }">
-      <span>{{ ThemeConfig.title }}</span>
+      <span>{{ title }}</span>
     </div>
     <div class="header-content"></div>
     <div class="header-actions">
@@ -22,6 +22,8 @@ import { ThemeConfig } from "../../themeConfig";
 import Notice from "./notice.vue";
 import Avatar from "./avatar.vue";
 import HelpDoc from "./helpDoc.vue";
+
+const { HeaderHeight, SlideMenuWidth, title } = ThemeConfig
 </script>
 
 <style lang="scss" scoped>

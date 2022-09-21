@@ -5,13 +5,14 @@
         content="文 档"
         placement="bottom"
       >
-        <Icon name="PartlyCloudy" size="18"></Icon>
+        <el-icon :size="18">
+          <PartlyCloudy />
+        </el-icon>
       </el-tooltip>
     </div>
   </div>
 </template>
 <script setup>
-import Icon from '@/components/Icon/index.vue'
 </script>
 <style lang="scss" scoped>
 .header-action-item {

@@ -1,45 +1,63 @@
 <template>
-  <div
-    class="slide-menu"
-    :style="{
-      'height': `100vh`,
-      marginTop: `${ThemeConfig.HeaderHeight}px`,
-      'width': `${commonStore.isCollapse ? 50 : ThemeConfig.SlideMenuWidth}px`
-    }"
-  >
-    <el-scrollbar
-      :style="{
-        'height': `calc(100% - ${ThemeConfig.HeaderHeight + 40}px)`
-      }"
-    >
-      <el-menu class="el-menu-vertical" :default-active="activeIndex">
-        <MenuTree :menuList="menus" />
+  <div class="slide-menu">
+    <el-scrollbar class='el-menu-vertical'>
+      <el-menu class='el-menu-vertical' :collapseTransition="false"
+        :style="{ width: isCollapse ? SlideMenuMinWidth : SlideMenuWidth }" :default-active="activeIndex"
+        :collapse="isCollapse">
+        <template v-for="item in menus" :key="item.path">
+          <transition-group name="el-fade-in-linear" mode="out-in" appear>
+            <el-sub-menu v-if="item.children && item.children.length > 0" :key="item.name" :index="item.name">
+              <template #title>
+                <el-icon :size="18">
+                  <component :is="item.icon"></component>
+                </el-icon>
+                <span>{{  item.title  }}</span>
+              </template>
+              <el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.path"
+                @click="handleMenuClick(subItem)">
+                <el-icon :size="18">
+                  <component :is="subItem.icon"></component>
+                </el-icon>
+                <template #title>
+                  <span>{{  subItem.title  }}</span>
+                </template>
+              </el-menu-item>
+            </el-sub-menu>
+            <el-menu-item v-else :index="item.path" @click="handleMenuClick(item)">
+              <el-icon :size="18">
+                <component :is="item.icon"></component>
+              </el-icon>
+              <template #title>
+                <span>{{  item.title  }}</span>
+              </template>
+            </el-menu-item>
+          </transition-group>
+        </template>
       </el-menu>
     </el-scrollbar>
+
     <div class="slide-menu-collapse">
-      <Icon
-        :name="!commonStore.isCollapse ? 'Fold' : 'Expand'"
-        :color="ThemeConfig.PrimaryColor"
-        size="22"
-        @click="handleCollapse"
-      ></Icon>
+      <el-icon @click="handleCollapse" :color="PrimaryColor" :size="22">
+        <component :is="!isCollapse ? 'Fold' : 'Expand'"></component>
+      </el-icon>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, toRefs } from 'vue'
 import { ThemeConfig } from '../../themeConfig'
 import { menus } from '../../router/menu'
-import MenuTree from './MenuTree.vue'
-import Icon from '@/components/Icon/index.vue'
 import { useCommonStore } from '@/stores/commonStore'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const commonStore = useCommonStore()
 const route = useRoute()
+const router = useRouter()
 
 const activeIndex = ref()
+const { HeaderHeight, SlideMenuWidth, SlideMenuMinWidth, PrimaryColor } = ThemeConfig;
+const { isCollapse } = toRefs(commonStore)
 
 onMounted(() => {
   getActiveIndex()
@@ -56,7 +74,6 @@ const getActiveIndex = () => {
   // location.pathname的值通常为：/main-angular11/app-vue2/page2，我们只取`/app-vue2/page2`
   const pathArr = location.pathname.match(/\/app-.+/) || [location.pathname]
   activeIndex.value = pathArr ? pathArr[0].replace(/\/$/, '') : '/'
-  console.log(activeIndex);
 
   // 去除斜线后缀，如：/app-vue2/ 转换为 /app-vue2
   if (activeIndex.value !== '/') {
@@ -66,6 +83,13 @@ const getActiveIndex = () => {
 
 const handleCollapse = () => {
   commonStore.setCollapse(!commonStore.isCollapse)
+}
+
+
+const handleMenuClick = (item) => {
+  if (item.path) {
+    router.push(item.path)
+  }
 }
 </script>
 
@@ -79,10 +103,26 @@ const handleCollapse = () => {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.5s;
   z-index: 99;
+  height: 100vh;
+  padding-top: v-bind(HeaderHeight);
 }
 .slide-menu-collapse {
   margin-top: 8px;
-  // padding-left: 25px;
+  padding-left: 20px;
   cursor: pointer;
+}
+:deep(.el-menu-item.is-active) {
+  background-color: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
+  border-radius: var(--el-border-radius-base);
+}
+.el-menu-vertical {
+  height: calc(100% - v-bind(HeaderHeight) - 40px);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.5s;
+}
+.el-menu {
+  border-right: none;
 }
 </style>

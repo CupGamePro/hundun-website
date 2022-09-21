@@ -28,3 +28,10 @@
   justify-content: center;
   padding: 5px 10px 0px 20px !important;
 }
+
+// 菜单样式
+.el-menu {
+  --el-menu-item-height: 48px;
+  --el-menu-sub-item-height: calc(var(--el-menu-item-height) - 6px);
+
+}

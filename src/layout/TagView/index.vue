@@ -12,8 +12,10 @@
             <div class="tabs-card-title">
               <span>{{ element.meta.title }}</span>
             </div>
-            <div class="tabs-card-close-button" style="margin-left: 10px" v-if="element.meta.title !== '首页'">
-              <Icon name="Close" @click.stop="closeTabItem(element)"></Icon>
+            <div class="tabs-card-close-button" v-if="element.meta.title !== '首页'">
+              <el-icon :size="16" @click.stop="closeTabItem(element)">
+                <Close />
+              </el-icon>
             </div>
           </div>
         </template>
@@ -27,7 +29,6 @@ import {
   reactive,
   watch
 } from 'vue'
-import Icon from '@/components/Icon/index.vue'
 import Draggable from 'vuedraggable'
 import { TAGS_ROUTES } from '@/utils/storeKeys'
 import { useTabsViewStore } from '@/stores/tabsView'
@@ -149,16 +150,16 @@ const linkTo = (e) => {
   font-size: 14px;
   border-radius: 2px;
   border: 1px solid var(--el-border-color-lighter);
-  padding: 0 20px;
+  padding: 0 8px 0 10px;
   margin-right: 6px;
   cursor: pointer;
   box-shadow: var(--el-primary-color-lighter) 0px 0px 30px 5px inset;
 }
 .tabs-card-title {
   overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
 }
 .active-item {
   color: var(--el-color-primary);
@@ -168,6 +169,14 @@ const linkTo = (e) => {
 .tabs-card-close-button:hover {
   background-color: var(--el-border-color-lighter);
   border-radius: 50%;
+}
+.tabs-card-close-button {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
 }
 .flex {
   display: flex;
