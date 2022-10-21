@@ -1,14 +1,16 @@
 <template>
   <div class="tag-box-wrap">
     <div class="tags-main-box">
+      <div class="tabs-card-scroll-item" :id="`taghome`"
+        :class="{ 'active-item': state.activeKey === '/home' }" @click.stop="linkTo({ fullPath: '/home'})">
+        <div class="tabs-card-title">
+          <span>首 页</span>
+        </div>
+      </div>
       <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
         <template #item="{ element }">
-          <div
-            class="tabs-card-scroll-item"
-            :id="`tag${element.fullPath.split('/').join('\/')}`"
-            :class="{ 'active-item': state.activeKey === element.path }"
-            @click.stop="linkTo(element)"
-          >
+          <div class="tabs-card-scroll-item" :id="`tag${element.fullPath.split('/').join('\/')}`"
+            :class="{ 'active-item': state.activeKey === element.path }" @click.stop="linkTo(element)">
             <div class="tabs-card-title">
               <span>{{ element.meta.title }}</span>
             </div>
@@ -79,7 +81,7 @@ cacheRoutes.forEach((cacheRoute) => {
 tabsViewStore.initTabs(cacheRoutes)
 
 // 标签页列表
-const tabsList = computed(() => tabsViewStore.tabsList)
+const tabsList = computed(() => tabsViewStore.tabsList.filter(ele => ele.path !== '/home'))
 
 // 监听路由
 watch(
@@ -133,13 +135,14 @@ const linkTo = (e) => {
   background-color: var(--el-color-white);
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   z-index: 90;
+  color: var(--el-text-color-regular);
 }
 
 .tags-main-box {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-    padding: 6px;
+  padding: 6px;
 }
 .tabs-card-scroll-item {
   display: flex;
@@ -150,16 +153,16 @@ const linkTo = (e) => {
   font-size: 14px;
   border-radius: 2px;
   border: 1px solid var(--el-border-color-lighter);
-  padding: 0 8px 0 10px;
   margin-right: 6px;
   cursor: pointer;
-  box-shadow: var(--el-primary-color-lighter) 0px 0px 30px 5px inset;
+  box-shadow: var(--el-box-shadow-lighter);
 }
 .tabs-card-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
+  padding: 0 10px;
 }
 .active-item {
   color: var(--el-color-primary);
@@ -176,7 +179,7 @@ const linkTo = (e) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 8px;
+  margin-right: 6px;
 }
 .flex {
   display: flex;

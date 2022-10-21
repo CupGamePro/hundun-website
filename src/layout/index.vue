@@ -1,22 +1,17 @@
 <template>
-  <div>
+  <div style="height: 100vh">
     <Header></Header>
     <div class="layout-content">
       <SlideMenu></SlideMenu>
-      <div
-        class="micro-layout-container"
-        :style="{
-          minHeight: `calc(100vh - ${HeaderHeight})`,
+      <div class="micro-layout-container" :style="{
+          paddingTop: isTagsMenu ? '' : `calc(${HeaderHeight} + 42px)`,
           marginLeft: `${!isCollapse ? SlideMenuWidth : SlideMenuMinWidth}`,
           width: `calc(100% - ${isCollapse ? SlideMenuMinWidth : SlideMenuWidth})`
-        }"
-      >
-        <TagView v-if="ThemeConfig.isTagsMenu"></TagView>
+        }">
+        <TagView v-if="isTagsMenu"></TagView>
         <router-view v-slot="{ Component }">
           <PageContainer>
-            <transition name="el-fade-in-linear" mode="out-in" appear>
-              <component :is="Component" />
-            </transition>
+            <component :is="Component" />
           </PageContainer>
         </router-view>
       </div>
@@ -35,19 +30,19 @@ import PageContainer from './Page/PageContainer.vue'
 
 const commonStore = useCommonStore()
 
-const { HeaderHeight, SlideMenuWidth, SlideMenuMinWidth } = ThemeConfig
+const { HeaderHeight, SlideMenuWidth, SlideMenuMinWidth, isTagsMenu } = ThemeConfig
 const { isCollapse } = toRefs(commonStore)
 </script>
 
 <style lang="scss" scoped>
 .layout-content {
   display: flex;
+  height: 100%;
 }
 .micro-layout-container {
   position: relative;
   top: v-bind(HeaderHeight);
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.5s;
+  height: 100%;
+  transition: all 0.3s linear;
 }
 </style>

@@ -8,7 +8,9 @@ export const routes = [
   {
     path: '/',
     name: 'Layout',
-    redirect: '/home',
+    redirect: {
+      name: 'Home'
+    },
     component: Layout,
     children: [
       {

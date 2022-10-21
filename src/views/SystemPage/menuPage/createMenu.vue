@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="menuDrawer">
+  <el-drawer v-model="menuDrawer" :show-close="false">
     <template #header>
       <h4>新建目录</h4>
     </template>

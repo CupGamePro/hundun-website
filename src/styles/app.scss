@@ -8,6 +8,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  color: var(--el-text-color-regular);
 }
 
 /* 滚动条凹槽的颜色，还可以设置边框属性 */

@@ -16,11 +16,11 @@
           default-expand-all
         >
           <el-table-column type="selection" width="55" align="center" />
-          <el-table-column prop="menu_name" label="菜单名称" sortable />
-          <el-table-column prop="menu_code" label="编码" sortable />
-          <el-table-column prop="menu_type" label="类型" sortable />
-          <el-table-column prop="menu_dsc" label="菜单描述" sortable />
-          <el-table-column prop="menu_status" label="状态" sortable>
+          <el-table-column prop="menu_name" label="菜单名称" />
+          <el-table-column prop="menu_code" label="编码" />
+          <el-table-column prop="menu_type" label="类型" />
+          <el-table-column prop="menu_dsc" label="菜单描述" />
+          <el-table-column prop="menu_status" label="状态" >
             <template #default="scope">
               <el-tag
                 :type="scope.row.menu_status === '启用' ? '' : 'success'"

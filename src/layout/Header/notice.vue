@@ -74,7 +74,6 @@ const handleClick = (tab) => {
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 0 30px;
   height: 50px;
   border-top: 1px solid var(--el-bg-color);
 }

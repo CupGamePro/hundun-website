@@ -1,37 +1,36 @@
 <template>
-  <div class="slide-menu">
+  <div class="slide-menu" :style="{
+    width: `${isCollapse ? SlideMenuMinWidth : SlideMenuWidth}`
+  }">
     <el-scrollbar class='el-menu-vertical'>
-      <el-menu class='el-menu-vertical' :collapseTransition="false"
-        :style="{ width: isCollapse ? SlideMenuMinWidth : SlideMenuWidth }" :default-active="activeIndex"
-        :collapse="isCollapse">
+      <el-menu class='el-menu-vertical' :style="{ width: isCollapse ? SlideMenuMinWidth : SlideMenuWidth }"
+        :default-active="activeIndex" :collapse="isCollapse">
         <template v-for="item in menus" :key="item.path">
-          <transition-group name="el-fade-in-linear" mode="out-in" appear>
-            <el-sub-menu v-if="item.children && item.children.length > 0" :key="item.name" :index="item.name">
-              <template #title>
-                <el-icon :size="18">
-                  <component :is="item.icon"></component>
-                </el-icon>
-                <span>{{  item.title  }}</span>
-              </template>
-              <el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.path"
-                @click="handleMenuClick(subItem)">
-                <el-icon :size="18">
-                  <component :is="subItem.icon"></component>
-                </el-icon>
-                <template #title>
-                  <span>{{  subItem.title  }}</span>
-                </template>
-              </el-menu-item>
-            </el-sub-menu>
-            <el-menu-item v-else :index="item.path" @click="handleMenuClick(item)">
+          <el-sub-menu v-if="item.children && item.children.length > 0" :key="item.name" :index="item.name">
+            <template #title>
               <el-icon :size="18">
                 <component :is="item.icon"></component>
               </el-icon>
+              <span>{{  item.title  }}</span>
+            </template>
+            <el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.path"
+              @click="handleMenuClick(subItem)">
+              <el-icon :size="18">
+                <component :is="subItem.icon"></component>
+              </el-icon>
               <template #title>
-                <span>{{  item.title  }}</span>
+                <span>{{  subItem.title  }}</span>
               </template>
             </el-menu-item>
-          </transition-group>
+          </el-sub-menu>
+          <el-menu-item v-else :index="item.path" @click="handleMenuClick(item)">
+            <el-icon :size="18">
+              <component :is="item.icon"></component>
+            </el-icon>
+            <template #title>
+              <span>{{  item.title  }}</span>
+            </template>
+          </el-menu-item>
         </template>
       </el-menu>
     </el-scrollbar>
@@ -99,30 +98,34 @@ const handleMenuClick = (item) => {
   background: #fff;
   border-right: 1px solid #f0f0f0;
   box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.5s;
   z-index: 99;
   height: 100vh;
   padding-top: v-bind(HeaderHeight);
+  transition: width 0.3s linear;
 }
 .slide-menu-collapse {
   margin-top: 8px;
   padding-left: 20px;
   cursor: pointer;
 }
-:deep(.el-menu-item.is-active) {
+.el-menu-item.is-active::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-right: 3px solid var(--el-color-primary);
+}
+
+.el-menu-item.is-active {
   background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
-  border-radius: var(--el-border-radius-base);
 }
 .el-menu-vertical {
   height: calc(100% - v-bind(HeaderHeight) - 40px);
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.5s;
 }
 .el-menu {
+  padding-top: 3px;
   border-right: none;
 }
 </style>
