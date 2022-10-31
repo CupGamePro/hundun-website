@@ -35,6 +35,7 @@ service.interceptors.response.use(
     if (res.code !== 200) {
       ElMessage.error(res.message || 'Error');
     } else {
+      console.log(res);
       return res;
     }
   },

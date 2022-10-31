@@ -122,6 +122,7 @@ const handleMenuClick = (item) => {
   color: var(--el-color-primary);
 }
 .el-menu-vertical {
+  transition: all 0.3s linear;
   height: calc(100% - v-bind(HeaderHeight) - 40px);
 }
 .el-menu {

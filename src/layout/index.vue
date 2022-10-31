@@ -37,7 +37,7 @@ const { isCollapse } = toRefs(commonStore)
 <style lang="scss" scoped>
 .layout-content {
   display: flex;
-  height: 100%;
+  height: calc(100% - v-bind(HeaderHeight));
 }
 .micro-layout-container {
   position: relative;

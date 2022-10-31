@@ -66,7 +66,6 @@ try {
   cacheRoutes = [simpleRoute]
 }
 
-// 将最新的路由信息同步到 localStorage 中
 const routes = router.getRoutes()
 
 cacheRoutes.forEach((cacheRoute) => {
@@ -155,7 +154,7 @@ const linkTo = (e) => {
   border: 1px solid var(--el-border-color-lighter);
   margin-right: 6px;
   cursor: pointer;
-  box-shadow: var(--el-box-shadow-lighter);
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.08);
 }
 .tabs-card-title {
   overflow: hidden;
