@@ -1,63 +1,59 @@
 <template>
-  <el-space fill :size="15" direction="horizontal" style="width: 100%">
-    <PageCard>
-      <QueryFilter ref="queryFilter" @loadData="handleData"></QueryFilter>
-    </PageCard>
-    <PageCard>
-      <div class="table-actions">
-        <el-button type="primary" :icon="Plus" @click="handleCreate">新 建</el-button>
+  <QueryFilter ref="queryFilter" @loadData="handleData"></QueryFilter>
+  <PageCard style="height: calc(100vh - 210px)">
+    <div class="table-actions">
+      <el-button type="primary" :icon="Plus" @click="handleCreate">新 建</el-button>
+    </div>
+    <div class="table-box">
+      <el-table
+        :data="state.tableData"
+        style="width: 100%; margin-bottom: 20px"
+        row-key="id"
+        v-loading="loading"
+        default-expand-all
+      >
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column prop="menu_name" label="菜单名称" />
+        <el-table-column prop="menu_code" label="编码" />
+        <el-table-column prop="menu_type" label="类型" />
+        <el-table-column prop="menu_dsc" label="菜单描述" />
+        <el-table-column prop="menu_status" label="状态" >
+          <template #default="scope">
+            <el-tag
+              :type="scope.row.menu_status === '启用' ? '' : 'success'"
+              disable-transitions
+            >{{ scope.row.menu_status }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" width="100px">
+          <template #default="scope">
+            <div style="display: flex; justify-content: center;">
+              <el-space>
+                <el-icon @click="handleEdit(scope.row)" :color="ThemeConfig.PrimaryColor">
+                  <Edit />
+                </el-icon>
+                <el-icon @click="handleDelete(scope.row)" :color="ThemeConfig.DangerColor">
+                  <Delete />
+                </el-icon>
+              </el-space>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <el-scrollbar>
+      <div class="pagination-box">
+        <el-pagination
+          v-model:current-page="pagination.currentPage"
+          background
+          layout="total, sizes, prev, pager, next"
+          :total="state.total"
+          v-model:page-size="pagination.pageSize"
+        ></el-pagination>
       </div>
-      <div class="table-box">
-        <el-table
-          :data="state.tableData"
-          style="width: 100%; margin-bottom: 20px"
-          row-key="id"
-          v-loading="loading"
-          default-expand-all
-        >
-          <el-table-column type="selection" width="55" align="center" />
-          <el-table-column prop="menu_name" label="菜单名称" />
-          <el-table-column prop="menu_code" label="编码" />
-          <el-table-column prop="menu_type" label="类型" />
-          <el-table-column prop="menu_dsc" label="菜单描述" />
-          <el-table-column prop="menu_status" label="状态" >
-            <template #default="scope">
-              <el-tag
-                :type="scope.row.menu_status === '启用' ? '' : 'success'"
-                disable-transitions
-              >{{ scope.row.menu_status }}</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center" width="100px">
-            <template #default="scope">
-              <div style="display: flex; justify-content: center;">
-                <el-space>
-                  <el-icon @click="handleEdit(scope.row)" :color="ThemeConfig.PrimaryColor">
-                    <Edit />
-                  </el-icon>
-                  <el-icon @click="handleDelete(scope.row)" :color="ThemeConfig.DangerColor">
-                    <Delete />
-                  </el-icon>
-                </el-space>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <el-scrollbar>
-        <div class="pagination-box">
-          <el-pagination
-            v-model:current-page="pagination.currentPage"
-            background
-            layout="total, sizes, prev, pager, next"
-            :total="state.total"
-            v-model:page-size="pagination.pageSize"
-          ></el-pagination>
-        </div>
-      </el-scrollbar>
-    </PageCard>
-    <create-menu ref="menuDrawer" @loadData="handleData" />
-  </el-space>
+    </el-scrollbar>
+  </PageCard>
+  <create-menu ref="menuDrawer" @loadData="handleData" />
 </template>
 
 <script setup>
@@ -125,7 +121,7 @@ onMounted(() => {
 
 .table-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-bottom: 10px;
 }
 </style>

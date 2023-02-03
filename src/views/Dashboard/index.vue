@@ -1,12 +1,12 @@
 <template>
   <el-row :gutter="15">
     <el-col :span="6">
-      <PageCard class="crad-item">
+      <PageCard class="card-item">
         <div>成功咯</div>
       </PageCard>
     </el-col>
     <el-col :span="6">
-      <PageCard class="crad-item">
+      <PageCard class="card-item">
         <el-space direction="vertical" alignment="left">
           <div>
             <el-button type="primary" @click="submit">哈喽</el-button>
@@ -26,19 +26,19 @@
       </PageCard>
     </el-col>
     <el-col :span="6">
-      <PageCard class="crad-item">
+      <PageCard class="card-item">
         <div></div>
       </PageCard>
     </el-col>
     <el-col :span="6">
-      <PageCard class="crad-item">
+      <PageCard class="card-item">
         <div></div>
       </PageCard>
     </el-col>
   </el-row>
   <el-row>
     <el-col :span="24">
-      <PageCard class="crad-item-1">
+      <PageCard class="card-item-1">
         <div>
         </div>
       </PageCard>
@@ -46,19 +46,19 @@
   </el-row>
   <el-row :gutter="15">
     <el-col :span="12">
-      <PageCard class="crad-item-2">
+      <PageCard class="card-item-2">
         <div></div>
       </PageCard>
     </el-col>
     <el-col :span="12">
-      <PageCard class="crad-item-2">
+      <PageCard class="card-item-2">
         <div></div>
       </PageCard>
     </el-col>
   </el-row>
   <el-row>
     <el-col :span="24">
-      <PageCard class="crad-item-3">
+      <PageCard class="card-item-3">
         <div></div>
       </PageCard>
     </el-col>
@@ -104,16 +104,16 @@ const change2 = () => {
   margin-bottom: 0;
 }
 
-.crad-item {
+.card-item {
   min-height: 180px;
 }
-.crad-item-1 {
+.card-item-1 {
   min-height: 400px;
 }
-.crad-item-2 {
+.card-item-2 {
   min-height: 510px;
 }
-.crad-item-3 {
+.card-item-3 {
   min-height: 600px;
 }
 </style>

@@ -114,7 +114,7 @@ const handleMenuClick = (item) => {
   top: 0;
   right: 0;
   bottom: 0;
-  border-right: 3px solid var(--el-color-primary);
+  border-right: 2px solid var(--el-color-primary);
 }
 
 .el-menu-item.is-active {
@@ -126,7 +126,6 @@ const handleMenuClick = (item) => {
   height: calc(100% - v-bind(HeaderHeight) - 40px);
 }
 .el-menu {
-  padding-top: 3px;
   border-right: none;
 }
 </style>

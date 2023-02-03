@@ -1,29 +1,31 @@
 <template>
-  <div class="query-filter-box">
-    <div class="query-form">
-      <el-form :inline="true" ref="formRef" :model="formItem" class="demo-form-inline" label-width="70px">
-        <el-form-item label="菜单名称" prop="menu_name">
-          <el-input v-model="formItem.menu_name" placeholder="请输入菜单名称"></el-input>
-        </el-form-item>
-        <el-form-item label="菜单编码" prop="menu_code">
-          <el-input v-model="formItem.menu_code" placeholder="请输入菜单编码"></el-input>
-        </el-form-item>
-        <el-form-item label="菜单描述" prop="menu_dsc">
-          <el-input v-model="formItem.menu_dsc" placeholder="请输入菜单描述"></el-input>
-        </el-form-item>
-        <el-form-item label="状态" prop="menu_status">
-          <el-select v-model="formItem.menu_status" placeholder="状态">
-            <el-option label="开启" value="开启"></el-option>
-            <el-option label="关闭" value="关闭"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
+  <PageCard style="margin-bottom: 10px;">
+    <div class="query-filter-box">
+      <div class="query-form">
+        <el-form :inline="true" ref="formRef" :model="formItem" class="demo-form-inline" label-width="70px">
+          <el-form-item label="菜单名称" prop="menu_name">
+            <el-input v-model="formItem.menu_name" placeholder="请输入菜单名称"></el-input>
+          </el-form-item>
+          <el-form-item label="菜单编码" prop="menu_code">
+            <el-input v-model="formItem.menu_code" placeholder="请输入菜单编码"></el-input>
+          </el-form-item>
+          <el-form-item label="菜单描述" prop="menu_dsc">
+            <el-input v-model="formItem.menu_dsc" placeholder="请输入菜单描述"></el-input>
+          </el-form-item>
+          <el-form-item label="状态" prop="menu_status">
+            <el-select v-model="formItem.menu_status" placeholder="状态">
+              <el-option label="开启" value="开启"></el-option>
+              <el-option label="关闭" value="关闭"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="query-actions">
+        <el-button type="default" @click="resetFields(formRef)">重置</el-button>
+        <el-button type="primary" @click="onSubmit(formRef)">查询</el-button>
+      </div>
     </div>
-    <div class="query-actions">
-      <el-button type="default" @click="resetFields(formRef)">重置</el-button>
-      <el-button type="primary" @click="onSubmit(formRef)">查询</el-button>
-    </div>
-  </div>
+  </PageCard>
 </template>
 
 <script setup>

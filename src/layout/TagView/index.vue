@@ -36,7 +36,6 @@ import { TAGS_ROUTES } from '@/utils/storeKeys'
 import { useTabsViewStore } from '@/stores/tabsView'
 import { useRoute, useRouter } from 'vue-router'
 import { storage } from '@/utils/storage'
-import { ElMessage } from 'element-plus'
 
 const tabsViewStore = useTabsViewStore()
 const route = useRoute()
@@ -94,19 +93,16 @@ watch(
 
 // 关闭当前页面
 const removeTab = (route) => {
-  if (tabsList.value.length === 1) {
-    return ElMessage({
-      showClose: true,
-      message: '这已经是最后一页，不能再关闭了！',
-      type: 'warning'
-    })
-  }
   tabsViewStore.closeCurrentTab(route)
-  // 如果关闭的是当前页
-  if (state.activeKey === route.fullPath) {
-    const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)]
-    state.activeKey = currentRoute.fullPath
-    router.push(currentRoute)
+  if (tabsList.value.length === 0) {
+    router.push('/home')
+  } else {
+    // 如果关闭的是当前页
+    if (state.activeKey === route.fullPath) {
+      const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)]
+      state.activeKey = currentRoute.fullPath
+      router.push(currentRoute)
+    }
   }
 }
 
