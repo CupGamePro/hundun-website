@@ -36,5 +36,19 @@ export const menus = [
         icon: 'Bowl'
       }
     ]
+  },
+  {
+    path: '/develop',
+    name: 'Develop',
+    title: '开发管理',
+    icon: 'Drizzling',
+    children: [
+      {
+        path: '/develop/circleLib',
+        name: 'CircleLib',
+        title: '可视化展示',
+        icon: 'Bowl'
+      },
+    ]
   }
 ]
