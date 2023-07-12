@@ -9,9 +9,11 @@
     >
       <template #reference>
         <div class="action-wrapper">
-          <el-badge :value="200" class="item" :is-dot="true">
-            <Icon name="Bell" size="18"></Icon>
-          </el-badge>
+          <el-icon :size="18">
+            <el-badge :value="100" class="item" :is-dot="true">
+              <Bell />
+            </el-badge>
+          </el-icon>
         </div>
       </template>
       <div class="notice-wrapper">
@@ -35,7 +37,6 @@
   </div>
 </template>
 <script setup>
-import Icon from '@/components/Icon/index.vue'
 import { ref } from 'vue'
 import NoticeList from './noticeList.vue'
 
@@ -73,7 +74,6 @@ const handleClick = (tab) => {
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 0 30px;
   height: 50px;
   border-top: 1px solid var(--el-bg-color);
 }

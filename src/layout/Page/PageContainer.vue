@@ -1,6 +1,6 @@
 <template>
   <div class="page-container" :style="{
-    top: ThemeConfig.isTagsMenu ? '62px' : '20px'
+    top: ThemeConfig.isTagsMenu ? '55px' : '20px'
   }">
     <slot></slot>
   </div>
@@ -13,6 +13,6 @@ import { ThemeConfig } from '../../themeConfig'
 .page-container {
   position: relative;
   box-sizing: border-box;
-  margin: 0 20px 20px 20px;
+  margin: 0 15px 15px 15px;
 }
 </style>

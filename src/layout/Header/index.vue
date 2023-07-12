@@ -1,15 +1,18 @@
 <template>
   <div class="header-box-wrap" :style="{
-      height: `${ThemeConfig.HeaderHeight}px`,
-      lineHeight: `${ThemeConfig.HeaderHeight}px`,
+      height: HeaderHeight,
+      lineHeight: HeaderHeight,
     }">
     <div class="header-title" :style="{
-      width: `${ThemeConfig.SlideMenuWidth}px`,
+      width: SlideMenuWidth,
     }">
-      <span>{{ ThemeConfig.title }}</span>
+      <span>{{ title }}</span>
     </div>
     <div class="header-content"></div>
     <div class="header-actions">
+      <el-icon :size="18" class="custome-menu" @click="handleJump">
+        <Food />
+      </el-icon>
       <Notice />
       <HelpDoc />
       <Avatar />
@@ -19,9 +22,18 @@
 
 <script setup>
 import { ThemeConfig } from "../../themeConfig";
+import { useRouter } from 'vue-router'
 import Notice from "./notice.vue";
 import Avatar from "./avatar.vue";
 import HelpDoc from "./helpDoc.vue";
+
+const router = useRouter()
+
+const { HeaderHeight, SlideMenuWidth, title } = ThemeConfig
+
+const handleJump = () => {
+  router.push('/custome/page')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +63,9 @@ import HelpDoc from "./helpDoc.vue";
   .header-actions {
     display: flex;
     align-items: center;
+  }
+  .custome-menu {
+    cursor: pointer;
   }
 }
 </style>

@@ -1,10 +1,9 @@
-
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: '/api',
   timeout: 5000,
   headers: {
     Accept: "application/json",
@@ -31,7 +30,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    const res = response.data;    
+    const res = response.data;
     if (res.code !== 200) {
       ElMessage.error(res.message || 'Error');
     } else {

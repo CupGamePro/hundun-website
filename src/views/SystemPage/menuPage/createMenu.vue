@@ -1,39 +1,33 @@
 <template>
-  <el-drawer v-model="menuDrawer">
+  <el-drawer v-model="menuDrawer" :show-close="false">
     <template #header>
       <h4>新建目录</h4>
     </template>
     <template #default>
       <el-form ref="menuFormRef" :model="menuForm" :rules="rules" label-width="100px">
-        <el-form-item label="类别" prop="menu_type">
-          <el-select v-model="menuForm.menu_type" placeholder="请选择类别" style="width: 100%">
+        <el-form-item label="类别" prop="type">
+          <el-select v-model="menuForm.type" placeholder="请选择类别" style="width: 100%">
+            <el-option label="目录" value="目录"></el-option>
             <el-option label="菜单" value="菜单"></el-option>
-            <el-option label="根目录" value="根目录"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="层级" prop="menu_level">
-          <el-select v-model="menuForm.menu_level" placeholder="请选择层级" style="width: 100%" disabled>
-            <el-option label="平台层" value="平台层"></el-option>
-            <el-option label="租户层" value="租户层"></el-option>
-          </el-select>
+        <el-form-item label="编码" prop="code">
+          <el-input v-model="menuForm.code" placeholder="请输入目录编码"></el-input>
         </el-form-item>
-        <el-form-item label="目录编码" prop="menu_code">
-          <el-input v-model="menuForm.menu_code" placeholder="请输入目录编码"></el-input>
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="menuForm.name" placeholder="请输入目录名称"></el-input>
         </el-form-item>
-        <el-form-item label="目录名称" prop="menu_name">
-          <el-input v-model="menuForm.menu_name" placeholder="请输入目录名称"></el-input>
+        <el-form-item label="描述" prop="describe">
+          <el-input v-model="menuForm.describe" placeholder="请输入描述"></el-input>
         </el-form-item>
-        <el-form-item label="描述" prop="menu_dsc">
-          <el-input v-model="menuForm.menu_dsc" placeholder="请输入描述"></el-input>
+        <el-form-item label="图标" prop="icon">
+          <el-input v-model="menuForm.icon" placeholder="请输入Icon名称"></el-input>
         </el-form-item>
-        <el-form-item label="图标" prop="menu_icon">
-          <el-input v-model="menuForm.menu_icon" placeholder="请输入Icon名称"></el-input>
+        <el-form-item label="序号" prop="sort">
+          <el-input-number v-model="menuForm.sort"></el-input-number>
         </el-form-item>
-        <el-form-item label="序号" prop="menu_sort">
-          <el-input-number v-model="menuForm.menu_sort"></el-input-number>
-        </el-form-item>
-        <el-form-item label="状态" prop="menu_status">
-          <el-switch v-model="menuForm.menu_status"></el-switch>
+        <el-form-item label="状态" prop="status">
+          <el-switch v-model="menuForm.status" active-value="启用" inactive-value="禁用"></el-switch>
         </el-form-item>
       </el-form>
     </template>
@@ -54,46 +48,38 @@ import { createMenu } from '@/services/menuService';
 const menuDrawer = ref(false);
 const menuFormRef = ref()
 const menuForm = reactive({
-  menu_type: '目录',
-  menu_level: '平台级',
-  menu_code: '',
-  menu_name: '',
-  menu_sort: 0,
-  menu_icon: '',
-  menu_dsc: '',
-  menu_status: true
+  type: '目录',
+  code: '',
+  name: '',
+  sort: 0,
+  icon: '',
+  describe: '',
+  status: '启用'
 });
 
 const rules = reactive({
-  menu_type: [
+  type: [
     {
       required: true,
       message: '请选择类型',
       trigger: 'change',
     },
   ],
-  menu_level: [
-    {
-      required: true,
-      message: '请选择级别',
-      trigger: 'change',
-    },
-  ],
-  menu_code: [
+  code: [
     {
       required: true,
       message: '请输入编码',
       trigger: 'blur',
     },
   ],
-  menu_name: [
+  name: [
     {
       required: true,
-      message: '请输入目录名称',
+      message: '请输入名称',
       trigger: 'blur',
     },
   ],
-  menu_icon: [
+  icon: [
     {
       required: true,
       message: '请输入icon名称',

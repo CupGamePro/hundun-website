@@ -6,19 +6,14 @@ const DEFAULT_CACHE_TIME = 60 * 60 * 24
  * @param {string=} prefixKey -
  * @param {Object} [storage=localStorage] - sessionStorage | localStorage
  */
-export const createStorage = (prefixKey, storage) => {
+export const createStorage = (prefixKey, storage = localStorage) => {
   /**
    * 本地缓存类
    * @class Storage
    */
   const Storage = class {
-    constructor() {
-      this.prefixKey = prefixKey
-      this.storage = storage
-    }
-
     getKey (key) {
-      return `${this.prefixKey}${key}`.toUpperCase()
+      return `${prefixKey}${key}`.toUpperCase()
     }
 
     /**
@@ -32,7 +27,7 @@ export const createStorage = (prefixKey, storage) => {
         value,
         expire: expire !== null ? new Date().getTime() + expire * 1000 : null
       })
-      this.storage.setItem(this.getKey(key), stringData)
+      storage.setItem(this.getKey(key), stringData)
     }
 
     /**
@@ -41,7 +36,7 @@ export const createStorage = (prefixKey, storage) => {
      * @param {*=} def 默认值
      */
     get (key, def) {
-      const item = this.storage.getItem(this.getKey(key))
+      const item = storage.getItem(this.getKey(key))
       if (item) {
         try {
           const data = JSON.parse(item)
@@ -63,7 +58,7 @@ export const createStorage = (prefixKey, storage) => {
      * @param {string} key
      */
     remove (key) {
-      this.storage.removeItem(this.getKey(key))
+      storage.removeItem(this.getKey(key))
     }
 
     /**
@@ -71,7 +66,7 @@ export const createStorage = (prefixKey, storage) => {
      * @memberOf Cache
      */
     clear () {
-      this.storage.clear()
+      storage.clear()
     }
 
     /**

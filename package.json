@@ -5,18 +5,25 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "vue-cli-service serve"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
     "@vueuse/core": "^9.1.1",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
-    "element-plus": "^2.2.14",
+    "element-plus": "^2.2.18",
     "nprogress": "^0.2.0",
+    "pina": "^0.20.2204228",
     "pinia": "^2.0.20",
-    "vue": "^3.2.13",
-    "vue-router": "^4.0.3",
+    "quill-image-drop-module": "^1.0.3",
+    "quill-resize-module": "^1.2.4",
+    "vue": "^3.2.39",
+    "vue-grid-layout": "3.0.0-beta1",
+    "vue-router": "^4.1.5",
+    "vue2-editor": "^2.10.3",
+    "vue3-quill": "^0.3.0",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
@@ -33,7 +40,7 @@
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.54.5",
     "sass-loader": "^13.0.2",
-    "unplugin-auto-import": "^0.11.2",
+    "unplugin-auto-import": "^0.13.0",
     "unplugin-vue-components": "^0.22.4"
   }
 }

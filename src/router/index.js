@@ -2,13 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import Layout from '../layout/index.vue'
+import ToolLayout from '../layout/toolIndex.vue'
 import { ElLoading } from 'element-plus'
 
 export const routes = [
   {
     path: '/',
     name: 'Layout',
-    redirect: '/home',
+    redirect: {
+      name: 'Home'
+    },
     component: Layout,
     children: [
       {
@@ -64,6 +67,27 @@ export const routes = [
     ]
   },
   {
+    path: '/custome',
+    name: 'Custome',
+    component: ToolLayout,
+    redirect: {
+      name: 'CustomePage'
+    },
+    children: [
+      {
+        path: 'page',
+        name: 'CustomePage',
+        component: () => import(/* webpackChunkName: "Custome" */ '../views/CustomePage/index.vue'),
+      },
+      {
+        path: 'page2',
+        name: 'CustomePage2',
+        component: () => import(/* webpackChunkName: "Custome" */ '../views/CustomePage/page2.vue'),
+      }
+    ]
+
+  },
+  {
     path: '/authority',
     redirect: {
       name: 'Menu'
@@ -83,7 +107,7 @@ export const routes = [
   },
   {
     path: '/*',
-    name: '/404',
+    name: '404',
     component: () => import(/* webpackChunkName: "ErrorPage" */ '../views/ErrorPage/404.vue'),
     meta: {
       title: '404'

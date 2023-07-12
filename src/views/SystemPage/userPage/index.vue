@@ -1,5 +1,5 @@
 <template>
-  <PageCard>
+  <PageCard type="page">
     <el-form ref="ruleFormRef" :model="form" label-width="0" class="demo-ruleForm">
       <el-table :data="tableDatas" style="width: 100%">
         <el-table-column :prop="col.key" :label="col.name" v-for="col in columns" :key="col.uuid">

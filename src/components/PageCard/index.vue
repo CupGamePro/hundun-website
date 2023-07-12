@@ -1,10 +1,8 @@
 <template>
-  <div class="page-card">
-    <transition name="el-fade-in-linear">
-      <div class="page-card-body">
-        <slot></slot>
-      </div>
-    </transition>
+  <div class="page-card animated fadeIn">
+    <div class="page-card-body">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script setup>
@@ -23,12 +21,9 @@
   background: #fff;
   border-radius: 2px;
   width: 100%;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.5s;
 }
 .page-card-body {
   box-sizing: border-box;
-  padding: 20px;
+  padding: 15px;
 }
 </style>

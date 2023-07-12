@@ -10,18 +10,19 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/',
   productionSourceMap: false,
-
   devServer: {
+    hot: true,
+    port: 5000,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://192.168.212.18:3000',
         pathRewrite: {
           '^/api': ''
-        }
+        },
+        changeOrigin: true,
       }
     }
   },
-
   // 自定义webpack配置
   configureWebpack: {
     module: {
@@ -38,7 +39,7 @@ module.exports = defineConfig({
         deleteOriginalAssets: false // 不删除源文件
       }),
       AutoImport({
-        resolvers: [ElementPlusResolver({importStyle: false})]
+        resolvers: [ElementPlusResolver({importStyle: false})],
       }),
       Components({
         resolvers: [ElementPlusResolver()]

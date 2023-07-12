@@ -1,19 +1,23 @@
 <template>
   <div class="tag-box-wrap">
     <div class="tags-main-box">
+      <div class="tabs-card-scroll-item" :id="`taghome`"
+        :class="{ 'active-item': state.activeKey === '/home' }" @click.stop="linkTo({ fullPath: '/home'})">
+        <div class="tabs-card-title">
+          <span>首 页</span>
+        </div>
+      </div>
       <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
         <template #item="{ element }">
-          <div
-            class="tabs-card-scroll-item"
-            :id="`tag${element.fullPath.split('/').join('\/')}`"
-            :class="{ 'active-item': state.activeKey === element.path }"
-            @click.stop="linkTo(element)"
-          >
+          <div class="tabs-card-scroll-item" :id="`tag${element.fullPath.split('/').join('\/')}`"
+            :class="{ 'active-item': state.activeKey === element.path }" @click.stop="linkTo(element)">
             <div class="tabs-card-title">
               <span>{{ element.meta.title }}</span>
             </div>
-            <div class="tabs-card-close-button" style="margin-left: 10px" v-if="element.meta.title !== '首页'">
-              <Icon name="Close" @click.stop="closeTabItem(element)"></Icon>
+            <div class="tabs-card-close-button" v-if="element.meta.title !== '首页'">
+              <el-icon :size="16" @click.stop="closeTabItem(element)">
+                <Close />
+              </el-icon>
             </div>
           </div>
         </template>
@@ -27,13 +31,11 @@ import {
   reactive,
   watch
 } from 'vue'
-import Icon from '@/components/Icon/index.vue'
 import Draggable from 'vuedraggable'
 import { TAGS_ROUTES } from '@/utils/storeKeys'
 import { useTabsViewStore } from '@/stores/tabsView'
 import { useRoute, useRouter } from 'vue-router'
 import { storage } from '@/utils/storage'
-import { ElMessage } from 'element-plus'
 
 const tabsViewStore = useTabsViewStore()
 const route = useRoute()
@@ -63,7 +65,6 @@ try {
   cacheRoutes = [simpleRoute]
 }
 
-// 将最新的路由信息同步到 localStorage 中
 const routes = router.getRoutes()
 
 cacheRoutes.forEach((cacheRoute) => {
@@ -78,7 +79,7 @@ cacheRoutes.forEach((cacheRoute) => {
 tabsViewStore.initTabs(cacheRoutes)
 
 // 标签页列表
-const tabsList = computed(() => tabsViewStore.tabsList)
+const tabsList = computed(() => tabsViewStore.tabsList.filter(ele => ele.path !== '/home'))
 
 // 监听路由
 watch(
@@ -92,19 +93,16 @@ watch(
 
 // 关闭当前页面
 const removeTab = (route) => {
-  if (tabsList.value.length === 1) {
-    return ElMessage({
-      showClose: true,
-      message: '这已经是最后一页，不能再关闭了！',
-      type: 'warning'
-    })
-  }
   tabsViewStore.closeCurrentTab(route)
-  // 如果关闭的是当前页
-  if (state.activeKey === route.fullPath) {
-    const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)]
-    state.activeKey = currentRoute.fullPath
-    router.push(currentRoute)
+  if (tabsList.value.length === 0) {
+    router.push('/home')
+  } else {
+    // 如果关闭的是当前页
+    if (state.activeKey === route.fullPath) {
+      const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)]
+      state.activeKey = currentRoute.fullPath
+      router.push(currentRoute)
+    }
   }
 }
 
@@ -132,13 +130,14 @@ const linkTo = (e) => {
   background-color: var(--el-color-white);
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   z-index: 90;
+  color: var(--el-text-color-regular);
 }
 
 .tags-main-box {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-    padding: 6px;
+  padding: 6px;
 }
 .tabs-card-scroll-item {
   display: flex;
@@ -149,16 +148,16 @@ const linkTo = (e) => {
   font-size: 14px;
   border-radius: 2px;
   border: 1px solid var(--el-border-color-lighter);
-  padding: 0 20px;
   margin-right: 6px;
   cursor: pointer;
-  box-shadow: var(--el-primary-color-lighter) 0px 0px 30px 5px inset;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.08);
 }
 .tabs-card-title {
   overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  padding: 0 10px;
 }
 .active-item {
   color: var(--el-color-primary);
@@ -168,6 +167,14 @@ const linkTo = (e) => {
 .tabs-card-close-button:hover {
   background-color: var(--el-border-color-lighter);
   border-radius: 50%;
+}
+.tabs-card-close-button {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
 }
 .flex {
   display: flex;
