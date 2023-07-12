@@ -2,19 +2,18 @@ import request from '../utils/request';
 
 const BASE_SERVICE = '/plat-service';
 
+export function getIndex() {
+  return request.get(`${BASE_SERVICE}/index`)
+}
+
 /**
  * @description: 菜单列表
  * @params {Pagination} pagination
  * @params {MListFilterItems} payload
  * @return {Promise}
  */
-export function getMenuList(pagination, payload) {
-  return request({
-    url: `${BASE_SERVICE}/menu/lists`,
-    method: 'post',
-    data: payload,
-    params: pagination,
-  })
+export function getMenuList({ page, size }) {
+  return request.post(`${BASE_SERVICE}/menu/lists?page=${page}&size=${size}`)
 }
 
 /**
@@ -23,11 +22,7 @@ export function getMenuList(pagination, payload) {
  * @return {Promise}
  */
 export function createMenu(payload) {
-  return request({
-    url: `${BASE_SERVICE}/menu/createMenu`,
-    method: 'post',
-    data: payload,
-  })
+  return request.post(`${BASE_SERVICE}/menu/createMenu`, payload)
 }
 
 /**
@@ -36,11 +31,7 @@ export function createMenu(payload) {
  * @return {Promise}
  */
 export function updateMenu(payload) {
-  return request({
-    url: `${BASE_SERVICE}/menu/updateMenu`,
-    method: 'put',
-    data: payload,
-  })
+  return request.put(`${BASE_SERVICE}/menu/updateMenu`, payload)
 }
 
 /**
@@ -49,8 +40,5 @@ export function updateMenu(payload) {
  * @return {Promise}
  */
 export function deleteMenu(id) {
-  return request({
-    url: `${BASE_SERVICE}/menu/deleteMenu?id=${id}`,
-    method: 'delete',
-  })
+  return request.delete(`${BASE_SERVICE}/menu/deleteMenu?id=${id}`)
 }

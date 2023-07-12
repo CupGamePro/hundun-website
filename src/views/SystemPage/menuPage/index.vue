@@ -1,6 +1,6 @@
 <template>
   <QueryFilter ref="queryFilter" @loadData="handleData"></QueryFilter>
-  <PageCard style="height: calc(100vh - 210px)">
+  <PageCard style="height: calc(100vh - 200px)">
     <div class="table-actions">
       <el-button type="primary" :icon="Plus" @click="handleCreate">新 建</el-button>
     </div>
@@ -13,30 +13,22 @@
         default-expand-all
       >
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column prop="menu_name" label="菜单名称" />
-        <el-table-column prop="menu_code" label="编码" />
-        <el-table-column prop="menu_type" label="类型" />
-        <el-table-column prop="menu_dsc" label="菜单描述" />
-        <el-table-column prop="menu_status" label="状态" >
+        <el-table-column prop="name" label="菜单名称" />
+        <el-table-column prop="code" label="编码" />
+        <el-table-column prop="type" label="类型" />
+        <el-table-column prop="describe" label="菜单描述" />
+        <el-table-column prop="status" label="状态" >
           <template #default="scope">
             <el-tag
-              :type="scope.row.menu_status === '启用' ? '' : 'success'"
+              :type="scope.row.status === '禁用' ? 'danger' : 'success'"
               disable-transitions
-            >{{ scope.row.menu_status }}</el-tag>
+            >{{ scope.row.status }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="100px">
+        <el-table-column label="操作" align="center" width="180px">
           <template #default="scope">
-            <div style="display: flex; justify-content: center;">
-              <el-space>
-                <el-icon @click="handleEdit(scope.row)" :color="ThemeConfig.PrimaryColor">
-                  <Edit />
-                </el-icon>
-                <el-icon @click="handleDelete(scope.row)" :color="ThemeConfig.DangerColor">
-                  <Delete />
-                </el-icon>
-              </el-space>
-            </div>
+            <el-button type="success" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
+            <el-button type="danger" text @click="handleDelete(scope.row)" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -62,7 +54,6 @@ import QueryFilter from './queryFilter.vue';
 import { getMenuList, deleteMenu } from '@/services/menuService';
 import { Plus } from '@element-plus/icons-vue';
 import CreateMenu from './createMenu.vue';
-import { ThemeConfig } from '@/themeConfig'
 import { ElMessage } from 'element-plus';
 
 const queryFilter = ref();
@@ -75,14 +66,14 @@ const state = reactive({
 })
 
 const pagination = reactive({
-  currentPage: 1,
-  pageSize: 10,
+  page: 1,
+  size: 10,
 })
 
 const handleData = () => {
   loading.value = true;
-  const payload = queryFilter.value.filterData;
-  getMenuList(pagination, payload).then(res => {
+  // const payload = queryFilter.value.filterData;
+  getMenuList(pagination).then(res => {
     if (res.code && res.code === 200) {
       state.tableData = res.data.content;
       state.total = res.data.totalCount;

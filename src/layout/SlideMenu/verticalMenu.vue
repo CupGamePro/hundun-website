@@ -15,11 +15,8 @@
             </template>
             <el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.path"
               @click="handleMenuClick(subItem)">
-              <el-icon :size="18">
-                <component :is="subItem.icon"></component>
-              </el-icon>
               <template #title>
-                <span>{{  subItem.title  }}</span>
+                <span style="margin-left: 10px">{{  subItem.title  }}</span>
               </template>
             </el-menu-item>
           </el-sub-menu>
@@ -127,5 +124,8 @@ const handleMenuClick = (item) => {
 }
 .el-menu {
   border-right: none;
+}
+:deep(.el-menu--inline) {
+  background-color: var(--el-fill-color-lighter);
 }
 </style>

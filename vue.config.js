@@ -10,7 +10,19 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/',
   productionSourceMap: false,
-
+  devServer: {
+    hot: true,
+    port: 5000,
+    proxy: {
+      '/api': {
+        target: 'http://192.168.212.18:3000',
+        pathRewrite: {
+          '^/api': ''
+        },
+        changeOrigin: true,
+      }
+    }
+  },
   // 自定义webpack配置
   configureWebpack: {
     module: {
