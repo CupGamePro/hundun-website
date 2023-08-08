@@ -17,7 +17,7 @@ export const routes = [
       {
         path: 'home',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "Dashboard" */ '../views/circleLib/index.vue'),
+        component: () => import(/* webpackChunkName: "Dashboard" */ '../views/map/index.vue'),
         meta: {
           title: '首页'
         }
@@ -86,6 +86,24 @@ export const routes = [
       }
     ]
 
+  },
+  {
+    path: '/develop',
+    redirect: {
+      name: 'Menu'
+    },
+    component: Layout,
+    name: 'Develop',
+    children: [
+      {
+        path: 'circleLib',
+        name: 'CircleLib',
+        component: () => import('../views/circleLib/index.vue'),
+        meta: {
+          title: '旋转椭圆'
+        }
+      },
+    ]
   },
   {
     path: '/authority',

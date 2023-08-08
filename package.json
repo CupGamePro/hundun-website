@@ -9,6 +9,8 @@
     "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "@antv/l7": "^2.17.4",
+    "@antv/l7-maps": "^2.17.4",
     "@element-plus/icons-vue": "^2.0.9",
     "@vueuse/core": "^9.1.1",
     "axios": "^0.27.2",
