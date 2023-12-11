@@ -1,6 +1,6 @@
 export const ThemeConfig = {
   // 主题色
-  PrimaryColor: "#b37feb",
+  PrimaryColor: "#1677ff",
   DangerColor: "#f56c6c",
 
   // title

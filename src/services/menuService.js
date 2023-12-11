@@ -2,8 +2,12 @@ import request from '../utils/request';
 
 const BASE_SERVICE = '/plat-service';
 
-export function getIndex() {
-  return request.get(`${BASE_SERVICE}/index`)
+/**
+ * @description: 菜单分类列表
+ * @return {Promise}
+ */
+export function getCatalogs() {
+  return request.get(`${BASE_SERVICE}/menu/catalogs`)
 }
 
 /**
@@ -12,8 +16,8 @@ export function getIndex() {
  * @params {MListFilterItems} payload
  * @return {Promise}
  */
-export function getMenuList({ page, size }) {
-  return request.post(`${BASE_SERVICE}/menu/lists?page=${page}&size=${size}`)
+export function getMenuList(payload) {
+  return request.post(`${BASE_SERVICE}/menu/lists`, payload)
 }
 
 /**
@@ -31,7 +35,16 @@ export function createMenu(payload) {
  * @return {Promise}
  */
 export function updateMenu(payload) {
-  return request.put(`${BASE_SERVICE}/menu/updateMenu`, payload)
+  return request.patch(`${BASE_SERVICE}/menu`, payload)
+}
+
+/**
+ * @description: 菜单状态修改
+ * @params {MenuModelType} payload
+ * @return {Promise}
+ */
+export function updateStatus(uuid, status) {
+  return request.patch(`${BASE_SERVICE}/menu/updateStatus/${uuid}?status=${status}`)
 }
 
 /**
@@ -39,6 +52,6 @@ export function updateMenu(payload) {
  * @params {string} id
  * @return {Promise}
  */
-export function deleteMenu(id) {
-  return request.delete(`${BASE_SERVICE}/menu/deleteMenu?id=${id}`)
+export function deleteMenu(uuid) {
+  return request.delete(`${BASE_SERVICE}/menu/${uuid}`)
 }

@@ -105,15 +105,21 @@ const handleMenuClick = (item) => {
   padding-left: 20px;
   cursor: pointer;
 }
-.el-menu-item.is-active::after {
-  position: absolute;
-  content: '';
-  top: 0;
-  right: 0;
-  bottom: 0;
-  border-right: 2px solid var(--el-color-primary);
+// .el-menu-item.is-active::after {
+//   position: absolute;
+//   content: '';
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   border-right: 2px solid var(--el-color-primary);
+// }
+.el-menu-item {
+  margin: 4px;
+  border-radius: 10px;
 }
-
+.el-menu-item:hover {
+  background-color: var(--el-color-primary-light-9);
+}
 .el-menu-item.is-active {
   background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);

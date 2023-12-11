@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus';
 // 创建axios实例
 const service = axios.create({
   baseURL: '/api',
-  timeout: 5000,
+  timeout: 3000,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/x-www-form-urlencoded"
@@ -38,7 +38,12 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    return Promise.reject(error);
+    const { response } = error;
+    if (response) {
+      return Promise.reject(response);
+    } else {
+      return Promise.reject(error);
+    }
   }
 )
 

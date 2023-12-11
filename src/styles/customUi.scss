@@ -11,8 +11,13 @@
 
 //表格Table样式
 .el-table {
-  --el-table-header-bg-color: var(--el-color-primary-light-9) !important;
+  --el-table-header-bg-color: #fafafa !important;
   --el-table-header-text-color: var(--el-text-color-primary) !important;
+  /* el-table列数据为空自动显示-- */
+  .cell:empty::before{
+    content:'--';
+    color:gray;
+  }
 }
 .el-table thead {
   font-weight: bolder !important;
