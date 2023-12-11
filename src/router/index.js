@@ -35,7 +35,7 @@ export const routes = [
       {
         path: 'menu',
         name: 'Menu',
-        component: () => import('../views/SystemPage/menuPage/index.vue'),
+        component: () => import('../views/System/menus/index.vue'),
         meta: {
           title: '菜单管理'
         }
@@ -43,7 +43,7 @@ export const routes = [
       {
         path: 'roles',
         name: 'Roles',
-        component: () => import('../views/SystemPage/userPage/index.vue'),
+        component: () => import('../views/System/roles/index.vue'),
         meta: {
           title: '角色管理'
         }
@@ -51,7 +51,7 @@ export const routes = [
       {
         path: 'users',
         name: 'Users',
-        component: () => import('../views/SystemPage/userPage/index.vue'),
+        component: () => import('../views/System/users/index.vue'),
         meta: {
           title: '用户管理'
         }

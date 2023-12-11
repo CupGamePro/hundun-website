@@ -5,8 +5,7 @@
       <el-button type="primary" :icon="Plus" @click="handleCreate">添加</el-button>
     </div>
     <div class="table-box">
-      <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" row-key="uuid" v-loading="loading"
-        default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+      <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" border v-loading="loading">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column prop="code" label="工号" />
         <el-table-column prop="username" label="用户名" />
@@ -24,7 +23,7 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="280px">
           <template #default="scope">
-            <el-button type="success" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
+            <el-button type="primary" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
             <el-button type="danger" text @click="handleDelete(scope.row)" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -35,7 +34,7 @@
         :total="state.total" v-model:page-size="pagination.pageSize" />
     </div>
   </PageCard>
-  <create-user ref="menuDrawer" @loadData="handleData" />
+  <create-user ref="drawer" @loadData="handleData" />
 </template>
 
 <script setup>
@@ -48,7 +47,7 @@ import { ElMessage } from 'element-plus';
 import lodash from 'lodash';
 
 const queryFilter = ref();
-const menuDrawer = ref();
+const drawer = ref();
 const loading = ref(false);
 
 const state = reactive({
@@ -82,11 +81,11 @@ const handleData = () => {
 };
 
 const handleCreate = (row) => {
-  if (!menuDrawer.value) return false;
+  if (!drawer.value) return false;
   const params = {
     parentId: row ? row.uuid : null,
   }
-  menuDrawer.value.openDrawer(params);
+  drawer.value.openDrawer(params);
 };
 
 const handleDelete = row => {
@@ -99,8 +98,8 @@ const handleDelete = row => {
 };
 
 const handleEdit = row => {
-  if (!menuDrawer.value) return false;
-  menuDrawer.value.openDrawer(row);
+  if (!drawer.value) return false;
+  drawer.value.openDrawer(row);
 };
 
 const handleStatusChange = row => {

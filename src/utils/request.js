@@ -39,9 +39,12 @@ service.interceptors.response.use(
   },
   (error) => {
     const { response } = error;
+    console.log(error);
     if (response) {
-      return Promise.reject(response);
+      return Promise.reject(response.data);
     } else {
+
+      ElMessage.error(error.message || 'Error');
       return Promise.reject(error);
     }
   }

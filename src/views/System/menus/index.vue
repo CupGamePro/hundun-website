@@ -5,7 +5,7 @@
       <el-button type="primary" :icon="Plus" @click="handleCreate">添加</el-button>
     </div>
     <div class="table-box">
-      <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" row-key="uuid" v-loading="loading"
+      <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" row-key="uuid" border v-loading="loading"
         default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column prop="name" label="菜单名称" />
@@ -21,8 +21,8 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="280px">
           <template #default="scope">
-            <el-button v-if="scope.row.type === 1" type="info" text @click="handleCreate(scope.row)" size="small">添加</el-button>
-            <el-button type="success" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
+            <el-button v-if="scope.row.type === 1" type="primary" text @click="handleCreate(scope.row)" size="small">添加</el-button>
+            <el-button type="primary" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
             <el-button type="danger" text @click="handleDelete(scope.row)" size="small">删除</el-button>
           </template>
         </el-table-column>

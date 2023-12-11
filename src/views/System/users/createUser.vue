@@ -77,7 +77,7 @@
 
 <script setup>
 import { ref, reactive, defineExpose, defineEmits } from 'vue';
-import { createUser, getCatalogs, updateUser } from '@/services/userService';
+import { createUser, updateUser } from '@/services/userService';
 import { ElMessage } from 'element-plus';
 import { cloneDeep } from 'lodash'
 
@@ -93,8 +93,6 @@ const form = ref({
   phone: '',
   status: 1,
 });
-
-const catalogOptions = ref([]);
 
 const rules = reactive({
   username: [
@@ -122,6 +120,13 @@ const rules = reactive({
     {
       required: true,
       message: '请选择性别',
+      trigger: 'blur',
+    },
+  ],
+  status: [
+    {
+      required: true,
+      message: '请选择状态',
       trigger: 'blur',
     },
   ],
@@ -202,18 +207,17 @@ const submitForm = (formEl) => {
   })
 }
 
-// 获取所有目录
-const handleCatalogs = () => {
-  getCatalogs().then(res => {
-    if (res.code && res.code === 200) {
-      catalogOptions.value = res.data;
-    }
-  })
-}
-handleCatalogs()
-
 const resetForm = () => {
-  formRef.value.resetFields();
+  form.value = {
+    username: '',
+    password: '',
+    reallyName: '',
+    avatar: '',
+    gender:'male',
+    email: '',
+    phone: '',
+    status: 1,
+  }
 }
 
 

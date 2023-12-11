@@ -17,7 +17,7 @@ export function getCatalogs() {
  * @return {Promise}
  */
 export function getRoleList(payload) {
-  return request.post(`${BASE_SERVICE}/role/lists`, payload)
+  return request.post(`${BASE_SERVICE}/roles/lists`, payload)
 }
 
 /**
@@ -26,7 +26,7 @@ export function getRoleList(payload) {
  * @return {Promise}
  */
 export function createRole(payload) {
-  return request.post(`${BASE_SERVICE}/role/createRole`, payload)
+  return request.post(`${BASE_SERVICE}/roles/create`, payload)
 }
 
 /**
@@ -35,7 +35,7 @@ export function createRole(payload) {
  * @return {Promise}
  */
 export function updateRole(payload) {
-  return request.patch(`${BASE_SERVICE}/role`, payload)
+  return request.patch(`${BASE_SERVICE}/roles`, payload)
 }
 
 /**
@@ -44,7 +44,7 @@ export function updateRole(payload) {
  * @return {Promise}
  */
 export function updateStatus(uuid, status) {
-  return request.patch(`${BASE_SERVICE}/role/updateStatus/${uuid}?status=${status}`)
+  return request.patch(`${BASE_SERVICE}/roles/updateStatus/${uuid}?status=${status}`)
 }
 
 /**
@@ -53,5 +53,5 @@ export function updateStatus(uuid, status) {
  * @return {Promise}
  */
 export function deleteRole(uuid) {
-  return request.delete(`${BASE_SERVICE}/role/${uuid}`)
+  return request.delete(`${BASE_SERVICE}/roles/${uuid}`)
 }
