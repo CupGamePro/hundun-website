@@ -1,7 +1,7 @@
 <template>
   <el-drawer v-model="menuDrawer" :show-close="false" @close="closeDrawer">
     <template #header>
-      <h4>新建</h4>
+      <h4>添加</h4>
     </template>
     <template #default>
       <el-form ref="menuFormRef" :model="menuForm" :rules="rules" label-width="100px">

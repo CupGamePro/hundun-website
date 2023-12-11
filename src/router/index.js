@@ -51,7 +51,7 @@ export const routes = [
       {
         path: 'users',
         name: 'Users',
-        component: () => import('../views/users.vue'),
+        component: () => import('../views/SystemPage/userPage/index.vue'),
         meta: {
           title: '用户管理'
         }

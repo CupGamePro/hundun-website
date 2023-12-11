@@ -16,7 +16,7 @@
       <Notice />
       <HelpDoc />
       <Avatar />
-      <el-button  @click="toggleDark()">主题</el-button>
+      <!-- <el-button  @click="toggleDark()">主题</el-button> -->
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ import { useRouter } from 'vue-router'
 import Notice from "./notice.vue";
 import Avatar from "./avatar.vue";
 import HelpDoc from "./helpDoc.vue";
-import { useDark, useToggle } from '@vueuse/core'
+// import { useDark, useToggle } from '@vueuse/core'
 
 const router = useRouter()
 
@@ -37,8 +37,8 @@ const handleJump = () => {
   router.push('/custome/page')
 }
 
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
+// const isDark = useDark()
+// const toggleDark = useToggle(isDark)
 </script>
 
 <style lang="scss" scoped>

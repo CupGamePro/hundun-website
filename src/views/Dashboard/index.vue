@@ -74,7 +74,7 @@ const form = reactive({
 })
 const options = reactive({
   btnOptions: [
-    { label: '新建需求', value: '1', name: '新建需求' },
+    { label: '添加需求', value: '1', name: '添加需求' },
     { label: '评审需求', value: '2', name: '评审需求' },
     { label: '需求归档', value: '3', name: '需求归档' },
     { label: '需求动态', value: '4', name: '需求动态' },

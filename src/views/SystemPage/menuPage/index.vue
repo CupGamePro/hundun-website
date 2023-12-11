@@ -43,6 +43,7 @@ import { getMenuList, deleteMenu, updateStatus } from '@/services/menuService';
 import { Plus } from '@element-plus/icons-vue';
 import CreateMenu from './createMenu.vue';
 import { ElMessage } from 'element-plus';
+import lodash from 'lodash';
 
 const queryFilter = ref();
 const menuDrawer = ref();
@@ -60,10 +61,13 @@ const pagination = reactive({
 
 const handleData = () => {
   loading.value = true;
+  const condition = queryFilter.value.formItem;
   const params = {
     page: pagination.page,
     pageSize: pagination.pageSize,
-    ...queryFilter.value,
+    condition: {
+      ...lodash.pickBy(condition, value => value !== '')
+    },
   }
   getMenuList(params).then(res => {
     if (res.code && res.code === 200) {
