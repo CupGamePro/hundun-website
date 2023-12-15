@@ -2,20 +2,22 @@ import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import Layout from '../layout/index.vue'
-import ToolLayout from '../layout/toolIndex.vue'
+import BlockLayout from '../layout/BlockLayout.vue'
 import { ElLoading } from 'element-plus'
+import request from '../utils/request';
+import { store } from '../stores'
+import { useCommonStore } from '@/stores/commonStore'
 
-export const routes = [
+const commonStore = useCommonStore(store)
+
+export const constantRoutes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Layout',
-    redirect: {
-      name: 'Home'
-    },
     component: Layout,
     children: [
       {
-        path: 'home',
+        path: '',
         name: 'Home',
         component: () => import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard/index.vue'),
         meta: {
@@ -23,88 +25,10 @@ export const routes = [
         }
       }
     ]
-  },
-  {
-    path: '/authority',
-    redirect: {
-      name: 'Menu'
-    },
-    component: Layout,
-    name: 'Authority',
-    children: [
-      {
-        path: 'menu',
-        name: 'Menu',
-        component: () => import('../views/System/menus/index.vue'),
-        meta: {
-          title: '菜单管理'
-        }
-      },
-      {
-        path: 'roles',
-        name: 'Roles',
-        component: () => import('../views/System/roles/index.vue'),
-        meta: {
-          title: '角色管理'
-        }
-      },
-      {
-        path: 'users',
-        name: 'Users',
-        component: () => import('../views/System/users/index.vue'),
-        meta: {
-          title: '用户管理'
-        }
-      },
-      {
-        path: 'resource',
-        name: 'Resource',
-        component: () => import('../views/resource.vue'),
-        meta: {
-          title: '资源管理'
-        }
-      }
-    ]
-  },
-  {
-    path: '/custome',
-    name: 'Custome',
-    component: ToolLayout,
-    redirect: {
-      name: 'CustomePage'
-    },
-    children: [
-      {
-        path: 'page',
-        name: 'CustomePage',
-        component: () => import(/* webpackChunkName: "Custome" */ '../views/CustomePage/index.vue'),
-      },
-      {
-        path: 'page2',
-        name: 'CustomePage2',
-        component: () => import(/* webpackChunkName: "Custome" */ '../views/CustomePage/page2.vue'),
-      }
-    ]
+  }
+]
 
-  },
-  {
-    path: '/develop',
-    redirect: {
-      name: 'Menu'
-    },
-    component: Layout,
-    name: 'Develop',
-    children: [
-      {
-        path: 'circleLib',
-        name: 'CircleLib',
-        component: () => import('../views/circleLib/index.vue'),
-        meta: {
-          title: '旋转椭圆'
-        }
-      },
-    ]
-  },
+const otherRouters = [
   {
     path: '/*',
     name: '404',
@@ -115,17 +39,72 @@ export const routes = [
   }
 ]
 
+// 请求后端数据
+const fetchMenuData = async () => {
+  try {
+    const response = await request.get('/plat-service/menu/sysmenu');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch menu data:', error);
+    return [];
+  }
+};
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes: constantRoutes
 })
 
 const loadingInstance = ElLoading.service({ target: '.page-container' })
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-  next()
-})
 
+// 生成路由
+const generateRoutes = (menuData, parent) => {
+  const routes = [];
+  menuData.forEach((item) => {
+    const path = parent ? parent.path + item.path : item.path;
+    const component = item.type === 1 ? Layout : () => import('@/views' + item.component + '.vue');
+    const rou = {
+      path,
+      name: item.code,
+      component, // 替换为对应的组件
+      meta: {
+        title: item.name,
+        icon: item.icon
+      }
+    }
+    if (item.children && item.children.length > 0) {
+      rou.children = generateRoutes(item.children, item);
+    }
+    routes.push(rou);
+  });
+  return routes
+};
+
+router.beforeEach(async (to, from, next) => {
+  NProgress.start()
+  if (commonStore.getMenus().length === 0) {
+    const menuData = await fetchMenuData();
+    const routes = generateRoutes(menuData);
+    console.log(menuData);
+    commonStore.setMenus(routes)
+    router.addRoute(
+      {
+        path: '/',
+        name: 'BlockLayout',
+        redirect: {
+          name: 'Home'
+        },
+        component: BlockLayout,
+        children: [...routes, ...otherRouters]
+      }
+    )
+    next({ ...to, replace: true })
+  } else {
+    next()
+  }
+
+})
+console.log(router.getRoutes());
 router.afterEach(() => {
   NProgress.done()
   loadingInstance.close();

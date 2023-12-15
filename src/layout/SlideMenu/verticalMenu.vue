@@ -9,23 +9,23 @@
           <el-sub-menu v-if="item.children && item.children.length > 0" :key="item.name" :index="item.name">
             <template #title>
               <el-icon :size="18">
-                <component :is="item.icon"></component>
+                <component :is="item.meta.icon"></component>
               </el-icon>
-              <span>{{  item.title  }}</span>
+              <span>{{  item.meta.title  }}</span>
             </template>
             <el-menu-item v-for="subItem in item.children" :key="subItem.path" :index="subItem.path"
               @click="handleMenuClick(subItem)">
               <template #title>
-                <span style="margin-left: 10px">{{  subItem.title  }}</span>
+                <span style="margin-left: 10px">{{  subItem.meta.title  }}</span>
               </template>
             </el-menu-item>
           </el-sub-menu>
           <el-menu-item v-else :index="item.path" @click="handleMenuClick(item)">
             <el-icon :size="18">
-              <component :is="item.icon"></component>
+              <component :is="item.meta.icon"></component>
             </el-icon>
             <template #title>
-              <span>{{  item.title  }}</span>
+              <span>{{  item.meta.title  }}</span>
             </template>
           </el-menu-item>
         </template>
@@ -43,7 +43,6 @@
 <script setup>
 import { onMounted, ref, watch, toRefs } from 'vue'
 import { ThemeConfig } from '../../themeConfig'
-import { menus } from '../../router/menu'
 import { useCommonStore } from '@/stores/commonStore'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -54,6 +53,8 @@ const router = useRouter()
 const activeIndex = ref()
 const { HeaderHeight, SlideMenuWidth, SlideMenuMinWidth, PrimaryColor } = ThemeConfig;
 const { isCollapse } = toRefs(commonStore)
+
+const menus = commonStore.getMenus()
 
 onMounted(() => {
   getActiveIndex()
@@ -123,6 +124,10 @@ const handleMenuClick = (item) => {
 .el-menu-item.is-active {
   background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
+}
+:deep(.el-sub-menu__title) {
+  margin: 0 4px !important;
+  border-radius: 10px !important;
 }
 .el-menu-vertical {
   transition: all 0.3s linear;

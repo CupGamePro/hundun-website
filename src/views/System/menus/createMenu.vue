@@ -1,7 +1,7 @@
 <template>
   <el-drawer v-model="menuDrawer" :show-close="false" @close="closeDrawer">
     <template #header>
-      <h4>添加</h4>
+      <h4>{{ title }}</h4>
     </template>
     <template #default>
       <el-form ref="menuFormRef" :model="menuForm" :rules="rules" label-width="100px">
@@ -24,8 +24,11 @@
             <template #prepend>CP - </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="组件路径" prop="path" v-if="menuForm.type === 2">
-          <el-input v-model="menuForm.path" placeholder="请输入组件路径"></el-input>
+        <el-form-item label="菜单路由" prop="path">
+          <el-input v-model="menuForm.path" placeholder="请输入菜单路由"></el-input>
+        </el-form-item>
+        <el-form-item label="组件路径" prop="component" v-if="menuForm.type === 2">
+          <el-input v-model="menuForm.component" placeholder="请输入组件路径"></el-input>
         </el-form-item>
         <el-form-item label="图标" prop="icon">
           <el-input v-model="menuForm.icon" placeholder="请输入Icon名称"></el-input>
@@ -70,9 +73,11 @@ const menuForm = ref({
   describe: '',
   status: 1,
   path: '',
+  component: '',
 });
 
 const catalogOptions = ref([]);
+const title = ref('添加')
 
 const rules = reactive({
   type: [
@@ -96,6 +101,13 @@ const rules = reactive({
       trigger: 'blur',
     },
   ],
+  path: [
+    {
+      required: true,
+      message: '请输入菜单路由',
+      trigger: 'blur',
+    },
+  ],
 })
 
 const emit = defineEmits(['loadData'])
@@ -107,7 +119,6 @@ const handleCreate = (params) => {
       closeDrawer();
       ElMessage.success('保存成功');
     } else {
-      console.log(res);
       ElMessage.error(res.message);
     }
   })
@@ -121,7 +132,6 @@ const handleEdit = (params) => {
       closeDrawer();
       ElMessage.success('保存成功');
     } else {
-      console.log(res);
       ElMessage.error(res.message);
     }
   })
@@ -142,6 +152,7 @@ const submitForm = (formEl) => {
         status: menuForm.value.status,
         path: menuForm.value.path,
         code: `CP-${menuForm.value.code}`,
+        component: menuForm.value.component,
       }
       if (menuForm.value.uuid) {
         handleEdit(params);
@@ -183,6 +194,7 @@ const resetForm = () => {
     describe: '',
     status: 1,
     path: '',
+    component: '',
   }
 }
 
@@ -192,6 +204,7 @@ const openDrawer = (row) => {
     const value = cloneDeep(row);
     if (row.uuid) {
       value.code = value.code.replace('CP-', '');
+      title.value = '编辑';
       menuForm.value = value;
     } else {
       menuForm.value.parentId = row.parentId;

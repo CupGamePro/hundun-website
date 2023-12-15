@@ -37,3 +37,10 @@
   --el-menu-item-height: 42px;
   --el-menu-sub-item-height: 42px;
 }
+
+.pagination-box {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  width: 100%;
+}

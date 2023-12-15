@@ -6,22 +6,25 @@
     </div>
     <div class="table-box">
       <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" row-key="uuid" border v-loading="loading"
-        default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
-        <el-table-column type="selection" width="55" align="center" />
+        default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" show-overflow-tooltip>
+        <el-table-column type="selection" width="50" />
         <el-table-column prop="name" label="菜单名称" />
         <el-table-column prop="code" label="编码" />
         <el-table-column prop="typeName" label="类型" />
-        <el-table-column prop="path" label="组件路径" />
-        <el-table-column prop="sort" label="排序" />
+        <el-table-column prop="path" label="路由" />
+        <el-table-column prop="component" label="组件路径" />
+        <el-table-column prop="sort" label="序号" />
         <el-table-column prop="level" label="层级" />
-        <el-table-column prop="status" label="启用/禁用">
+        <el-table-column prop="status" label="启用/禁用" width="100px" align="center">
           <template #default="scope">
-            <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small" @change="handleStatusChange(scope.row)"></el-switch>
+            <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small"
+              @change="handleStatusChange(scope.row)"></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="280px">
           <template #default="scope">
-            <el-button v-if="scope.row.type === 1" type="primary" text @click="handleCreate(scope.row)" size="small">添加</el-button>
+            <el-button v-if="scope.row.type === 1" type="primary" text @click="handleCreate(scope.row)"
+              size="small">添加</el-button>
             <el-button type="primary" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
             <el-button type="danger" text @click="handleDelete(scope.row)" size="small">删除</el-button>
           </template>
@@ -30,54 +33,27 @@
     </div>
     <div class="pagination-box">
       <el-pagination v-model:current-page="pagination.currentPage" background layout="total, sizes, prev, pager, next"
-        :total="state.total" v-model:page-size="pagination.pageSize" />
+        :total="state.total" v-model:page-size="pagination.pageSize" @size-change="changeSize"
+        @current-change="changePage" />
     </div>
   </PageCard>
   <create-menu ref="menuDrawer" @loadData="handleData" />
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import QueryFilter from './queryFilter.vue';
 import { getMenuList, deleteMenu, updateStatus } from '@/services/menuService';
 import { Plus } from '@element-plus/icons-vue';
 import CreateMenu from './createMenu.vue';
 import { ElMessage } from 'element-plus';
-import lodash from 'lodash';
+import { useBaseTable } from '@/hooks/useBaseTable';
 
 const queryFilter = ref();
+
 const menuDrawer = ref();
-const loading = ref(false);
+const { pagination, changePage, changeSize, loading, state, handleData } = useBaseTable(getMenuList, queryFilter)
 
-const state = reactive({
-  tableData: [],
-  total: 0,
-})
-
-const pagination = reactive({
-  page: 1,
-  pageSize: 10,
-})
-
-const handleData = () => {
-  loading.value = true;
-  const condition = queryFilter.value.formItem;
-  const params = {
-    page: pagination.page,
-    pageSize: pagination.pageSize,
-    condition: {
-      ...lodash.pickBy(condition, value => value !== '')
-    },
-  }
-  getMenuList(params).then(res => {
-    if (res.code && res.code === 200) {
-      state.tableData = res.data.content;
-      state.total = res.data.total;
-    }
-    loading.value = false;
-  })
-  loading.value = false;
-};
 
 const handleCreate = (row) => {
   if (!menuDrawer.value) return false;
@@ -102,7 +78,6 @@ const handleEdit = row => {
 };
 
 const handleStatusChange = row => {
-  console.log(row.status);
   updateStatus(row.uuid, row.status).then(res => {
     if (res.success) {
       ElMessage.success('操作成功');
@@ -117,13 +92,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.pagination-box {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  width: 100%;
-}
-
 .table-actions {
   display: flex;
   justify-content: flex-start;

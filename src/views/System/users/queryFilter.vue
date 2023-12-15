@@ -7,7 +7,7 @@
             <el-input v-model="formItem.username" placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item label="工号" prop="code">
-            <el-input v-model="formItem.code" placeholder="请输入工单"></el-input>
+            <el-input v-model="formItem.code" placeholder="请输入工号"></el-input>
           </el-form-item>
           <el-form-item label="状态" prop="status">
             <el-select v-model="formItem.status" placeholder="状态">
@@ -55,9 +55,7 @@ const resetFields = (formEl) => {
   formEl.resetFields();
 }
 
-defineExpose({
-  formItem,
-})
+defineExpose(formItem)
 </script>
 <style lang="scss" scoped>
 .query-filter-box {

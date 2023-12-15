@@ -17,7 +17,7 @@ export function getCatalogs() {
  * @return {Promise}
  */
 export function getRoleList(payload) {
-  return request.post(`${BASE_SERVICE}/roles/lists`, payload)
+  return request.post(`${BASE_SERVICE}/roles/list`, payload)
 }
 
 /**

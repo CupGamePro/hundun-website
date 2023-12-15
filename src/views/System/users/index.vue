@@ -5,18 +5,20 @@
       <el-button type="primary" :icon="Plus" @click="handleCreate">添加</el-button>
     </div>
     <div class="table-box">
-      <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" border v-loading="loading">
-        <el-table-column type="selection" width="55" align="center" />
+      <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" border v-loading="loading" show-overflow-tooltip>
+        <el-table-column type="selection" width="50" />
         <el-table-column prop="code" label="工号" />
         <el-table-column prop="username" label="用户名" />
         <el-table-column prop="reallyName" label="真实姓名" />
-        <el-table-column prop="genderName" label="性别" />
-        <el-table-column prop="avatar" label="头像" />
+        <el-table-column prop="roles" label="角色">
+          <template #default="scope">
+            {{ scope.row.roles.map(item => item.name).join(',') }}
+          </template>
+        </el-table-column>
         <el-table-column prop="email" label="邮箱" />
         <el-table-column prop="phone" label="电话" />
-        <el-table-column prop="address" label="地址" />
         <el-table-column prop="createTime" label="创建时间" />
-        <el-table-column prop="status" label="启用/禁用">
+        <el-table-column prop="status" label="启用/禁用" width="100px" align="center">
           <template #default="scope">
             <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small" @change="handleStatusChange(scope.row)"></el-switch>
           </template>
@@ -31,54 +33,25 @@
     </div>
     <div class="pagination-box">
       <el-pagination v-model:current-page="pagination.currentPage" background layout="total, sizes, prev, pager, next"
-        :total="state.total" v-model:page-size="pagination.pageSize" />
+        :total="state.total" v-model:page-size="pagination.pageSize" @size-change="changeSize"
+        @current-change="changePage" />
     </div>
   </PageCard>
   <create-user ref="drawer" @loadData="handleData" />
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import QueryFilter from './queryFilter.vue';
 import { getUserList, deleteUser, updateStatus } from '@/services/userService';
 import { Plus } from '@element-plus/icons-vue';
 import CreateUser from './createUser.vue';
 import { ElMessage } from 'element-plus';
-import lodash from 'lodash';
+import { useBaseTable } from '@/hooks/useBaseTable';
 
 const queryFilter = ref();
 const drawer = ref();
-const loading = ref(false);
-
-const state = reactive({
-  tableData: [],
-  total: 0,
-})
-
-const pagination = reactive({
-  page: 1,
-  pageSize: 10,
-})
-
-const handleData = () => {
-  loading.value = true;
-  const condition = queryFilter.value.formItem;
-  const params = {
-    page: pagination.page,
-    pageSize: pagination.pageSize,
-    condition: {
-      ...lodash.pickBy(condition, value => value !== '')
-    },
-  }
-  getUserList(params).then(res => {
-    if (res.code && res.code === 200) {
-      state.tableData = res.data.content;
-      state.total = res.data.total;
-    }
-    loading.value = false;
-  })
-  loading.value = false;
-};
+const { pagination, changePage, changeSize, loading, state, handleData } = useBaseTable(getUserList, queryFilter)
 
 const handleCreate = (row) => {
   if (!drawer.value) return false;
@@ -118,13 +91,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.pagination-box {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  width: 100%;
-}
-
 .table-actions {
   display: flex;
   justify-content: flex-start;

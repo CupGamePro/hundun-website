@@ -41,6 +41,7 @@ service.interceptors.response.use(
     const { response } = error;
     console.log(error);
     if (response) {
+      ElMessage.error(response.data.message || 'Error');
       return Promise.reject(response.data);
     } else {
 

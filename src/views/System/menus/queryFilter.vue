@@ -55,9 +55,7 @@ const resetFields = (formEl) => {
   formEl.resetFields();
 }
 
-defineExpose({
-  formItem,
-})
+defineExpose(formItem)
 </script>
 <style lang="scss" scoped>
 .query-filter-box {

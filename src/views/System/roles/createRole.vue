@@ -1,7 +1,7 @@
 <template>
   <el-dialog v-model="drawer" :show-close="false" @close="closeDrawer">
     <template #header>
-      <h4>添加</h4>
+      <h4>{{ title }}</h4>
     </template>
     <template #default>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
@@ -77,6 +77,7 @@ const rules = reactive({
     },
   ],
 })
+const title = ref('添加')
 
 const emit = defineEmits(['loadData'])
 
@@ -141,6 +142,7 @@ const openDrawer = (row) => {
   if (row) {
     const value = cloneDeep(row);
     if (row.uuid) {
+      title.value = '编辑';
       form.value = value;
     }
 

@@ -17,7 +17,7 @@ export function getCatalogs() {
  * @return {Promise}
  */
 export function getMenuList(payload) {
-  return request.post(`${BASE_SERVICE}/menu/lists`, payload)
+  return request.post(`${BASE_SERVICE}/menu/list`, payload)
 }
 
 /**
@@ -26,7 +26,7 @@ export function getMenuList(payload) {
  * @return {Promise}
  */
 export function createMenu(payload) {
-  return request.post(`${BASE_SERVICE}/menu/createMenu`, payload)
+  return request.post(`${BASE_SERVICE}/menu/create`, payload)
 }
 
 /**
