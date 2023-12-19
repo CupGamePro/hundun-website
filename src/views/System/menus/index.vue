@@ -21,7 +21,7 @@
               @change="handleStatusChange(scope.row)"></el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="280px">
+        <el-table-column label="操作" width="280px">
           <template #default="scope">
             <el-button v-if="scope.row.type === 1" type="primary" text @click="handleCreate(scope.row)"
               size="small">添加</el-button>
@@ -59,6 +59,7 @@ const handleCreate = (row) => {
   if (!menuDrawer.value) return false;
   const params = {
     parentId: row ? row.uuid : null,
+    level: row? row.level + 1 : 1,
   }
   menuDrawer.value.openDrawer(params);
 };

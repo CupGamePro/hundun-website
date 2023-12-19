@@ -9,7 +9,7 @@
           <el-sub-menu v-if="item.children && item.children.length > 0" :key="item.name" :index="item.name">
             <template #title>
               <el-icon :size="18">
-                <component :is="item.meta.icon"></component>
+                <component :is="item.meta.icon || 'Cloudy'"></component>
               </el-icon>
               <span>{{  item.meta.title  }}</span>
             </template>

@@ -17,14 +17,6 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'home',
-        name: 'Home',
-        component: () => import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard/index.vue'),
-        meta: {
-          title: '首页'
-        }
-      },
-      {
         path: '/*',
         name: '404',
         component: () => import(/* webpackChunkName: "ErrorPage" */ '../views/ErrorPage/404.vue'),

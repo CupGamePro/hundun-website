@@ -12,7 +12,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="父级" prop="parentId">
-          <el-select v-model="menuForm.parentId" placeholder="请选择父级目录" style="width: 100%" @change="changeParent">
+          <el-select v-model="menuForm.parentId" placeholder="请选择父级目录" style="width: 100%" @change="changeParent" clearable>
             <el-option :label="item.name" :value="item.uuid" v-for="item in catalogOptions" :key="item.uuid"></el-option>
           </el-select>
         </el-form-item>
@@ -173,12 +173,10 @@ const handleCatalogs = () => {
     }
   })
 }
-handleCatalogs()
-
 // 改变父级
 const changeParent = () => {
   const parent = catalogOptions.value.find(item => item.uuid === menuForm.value.parentId);
-  menuForm.value.level = parent.level + 1;
+  menuForm.value.level = parent.level ? parent.level + 1 : 1;
 }
 
 const resetForm = () => {
@@ -199,6 +197,7 @@ const resetForm = () => {
 
 
 const openDrawer = (row) => {
+  handleCatalogs()
   if (row) {
     const value = cloneDeep(row);
     if (row.uuid) {
@@ -207,9 +206,7 @@ const openDrawer = (row) => {
       menuForm.value = value;
     } else {
       menuForm.value.parentId = row.parentId;
-      menuForm.value.level = row.level + 1;
     }
-    
   } else {
     resetForm();
   }

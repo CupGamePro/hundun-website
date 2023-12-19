@@ -4,7 +4,7 @@
       <div class="tabs-card-scroll-item" :id="`taghome`"
         :class="{ 'active-item': state.activeKey === '/home' }" @click.stop="linkTo({ fullPath: '/home'})">
         <div class="tabs-card-title">
-          <span>首 页</span>
+          <span>我的工作台</span>
         </div>
       </div>
       <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">

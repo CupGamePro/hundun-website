@@ -2,7 +2,12 @@
   <el-row :gutter="15">
     <el-col :span="6">
       <PageCard class="card-item">
-        <div>成功咯</div>
+        <h4>1、刷新token</h4>
+        <h4>2、注销功能</h4>
+        <h4>3、角色切换功能</h4>
+        <h4>4、角色权限集成</h4>
+        <h4>5、任务管理</h4>
+        <h4>6、项目管理</h4>
       </PageCard>
     </el-col>
     <el-col :span="6">
