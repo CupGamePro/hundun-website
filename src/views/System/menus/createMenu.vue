@@ -143,7 +143,7 @@ const submitForm = (formEl) => {
     if (valid) {
       const params = {
         type: menuForm.value.type,
-        parentId: menuForm.value.parentId,
+        parentId: menuForm.value.parentId || '',
         name: menuForm.value.name,
         sort: menuForm.value.sort,
         level: menuForm.value.level,
@@ -160,7 +160,6 @@ const submitForm = (formEl) => {
         handleCreate(params);
       }
     } else {
-      console.log('error submit!')
       return false
     }
   })
@@ -208,6 +207,7 @@ const openDrawer = (row) => {
       menuForm.value = value;
     } else {
       menuForm.value.parentId = row.parentId;
+      menuForm.value.level = row.level + 1;
     }
     
   } else {

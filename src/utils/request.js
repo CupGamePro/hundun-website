@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import router from '../router'
 
 // 创建axios实例
 const service = axios.create({
@@ -18,11 +19,15 @@ service.interceptors.request.use(
     // @ts-ignore
     config.headers['Content-Type'] = 'application/json';
 
-    // 模拟请求令牌
+    //从本地存储中获取Token
+    const token = localStorage.getItem('token');
+    if (token) {
+      //在请求头中携带Token
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 )
@@ -39,10 +44,14 @@ service.interceptors.response.use(
   },
   (error) => {
     const { response } = error;
-    console.log(error);
     if (response) {
-      ElMessage.error(response.data.message || 'Error');
-      return Promise.reject(response.data);
+      if( response.data.code === 401) {
+        ElMessage.error('登录已过期，请重新登录');
+        router.push('/login')
+      } else {
+        ElMessage.error(response.data.message || 'Error');
+        return Promise.reject(response.data);
+      }
     } else {
 
       ElMessage.error(error.message || 'Error');

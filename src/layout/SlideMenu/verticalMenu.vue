@@ -54,7 +54,7 @@ const activeIndex = ref()
 const { HeaderHeight, SlideMenuWidth, SlideMenuMinWidth, PrimaryColor } = ThemeConfig;
 const { isCollapse } = toRefs(commonStore)
 
-const menus = commonStore.getMenus()
+const menus = commonStore.getAllMenus()
 
 onMounted(() => {
   getActiveIndex()

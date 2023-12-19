@@ -1,6 +1,6 @@
 <template>
   <QueryFilter ref="queryFilter" @loadData="handleData"></QueryFilter>
-  <PageCard style="height: calc(100vh - 200px)">
+  <PageCard class="table-page-card">
     <div class="table-actions">
       <el-button type="primary" :icon="Plus" @click="handleCreate">添加</el-button>
     </div>

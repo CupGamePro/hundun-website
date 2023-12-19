@@ -1,11 +1,12 @@
 <template>
-  <div>
-    404
+  <div style="height: 2000px;">
+    资源列表
   </div>
 </template>
+
 <script setup>
 
 </script>
-<style lang="scss">
+<style scoped>
 
 </style>

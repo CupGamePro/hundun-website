@@ -4,6 +4,7 @@ import router from './router'
 import { store } from './stores'
 import './styles/index.scss'
 import ELICON from './plugins/ElIcon'
+import "./permission";
 
 const app = createApp(App)
 
