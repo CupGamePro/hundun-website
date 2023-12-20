@@ -46,8 +46,9 @@ service.interceptors.response.use(
     const { response } = error;
     if (response) {
       if( response.data.code === 401) {
-        ElMessage.error('登录已过期，请重新登录');
         router.push('/login')
+        localStorage.removeItem('token');
+        ElMessage.error('登录已过期，请重新登录');
       } else {
         ElMessage.error(response.data.message || 'Error');
         return Promise.reject(response.data);
