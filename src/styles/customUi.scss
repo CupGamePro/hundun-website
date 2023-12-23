@@ -48,3 +48,9 @@
 .table-page-card {
   min-height: calc(100vh - 200px)
 }
+
+.table-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}

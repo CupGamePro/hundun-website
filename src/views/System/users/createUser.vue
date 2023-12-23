@@ -90,8 +90,8 @@
 
 <script setup>
 import { ref, reactive, defineExpose, defineEmits } from 'vue';
-import { createUser, updateUser } from '@/services/userService';
-import { getRoleList } from '@/services/roleService';
+import { createUser, updateUser } from '@/services/user';
+import { getRoleList } from '@/services/role';
 import { ElMessage } from 'element-plus';
 import { cloneDeep } from 'lodash'
 
@@ -289,3 +289,4 @@ defineExpose({
   openDrawer,
 })
 </script>
+@/services/role@/services/user

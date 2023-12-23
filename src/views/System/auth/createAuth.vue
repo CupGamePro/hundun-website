@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="drawer" :show-close="false" @close="closeDrawer">
+  <el-dialog v-model="drawer" :show-close="false" @close="closeDrawer" width="800px">
     <template #header>
       <h4>{{ title }}</h4>
     </template>
@@ -7,23 +7,13 @@
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="角色名称" prop="name">
+            <el-form-item label="权限名称" prop="name">
               <el-input v-model="form.name" placeholder="请输入角色名称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="角色编码" prop="code">
+            <el-form-item label="权限编码" prop="code">
               <el-input v-model="form.code" placeholder="请输入角色编码"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="描述" prop="description">
-              <el-input v-model="form.description" placeholder="请输入描述" type="textarea" maxlength="50"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="状态" prop="status">
-              <el-switch v-model="form.status" :active-value="1" :inactive-value="2"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
@@ -41,7 +31,7 @@
 
 <script setup>
 import { ref, reactive, defineExpose, defineEmits } from 'vue';
-import { createRole, updateRole } from '@/services/roleService';
+import { createRole, updateRole } from '@/services/role';
 import { ElMessage } from 'element-plus';
 import { cloneDeep } from 'lodash'
 
@@ -50,8 +40,6 @@ const formRef = ref()
 const form = ref({
   name: '',
   code: '',
-  description: '',
-  status: 1,
 });
 
 const rules = reactive({
@@ -66,13 +54,6 @@ const rules = reactive({
     {
       required: true,
       message: '请输入角色编码',
-      trigger: 'blur',
-    },
-  ],
-  status: [
-    {
-      required: true,
-      message: '请选择状态',
       trigger: 'blur',
     },
   ],
@@ -113,8 +94,6 @@ const submitForm = (formEl) => {
       const params = {
         name: form.value.name,
         code: form.value.code,
-        description: form.value.description,
-        status: form.value.status,
       }
       if (form.value.uuid) {
         handleEdit(params);
@@ -131,11 +110,8 @@ const resetForm = () => {
   form.value = {
     name: '',
     code: '',
-    description: '',
-    status: 1,
   }
 }
-
 
 const openDrawer = (row) => {
   if (row) {
@@ -160,3 +136,4 @@ defineExpose({
   openDrawer,
 })
 </script>
+@/services/role

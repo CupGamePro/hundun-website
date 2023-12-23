@@ -43,7 +43,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import QueryFilter from './queryFilter.vue';
-import { getMenuList, deleteMenu, updateStatus } from '@/services/menuService';
+import { getMenuList, deleteMenu, updateStatus } from '@/services/menu';
 import { Plus } from '@element-plus/icons-vue';
 import CreateMenu from './createMenu.vue';
 import { ElMessage } from 'element-plus';
@@ -93,9 +93,4 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.table-actions {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
 </style>

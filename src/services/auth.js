@@ -10,3 +10,12 @@ const BASE_SERVICE = '/plat-service';
 export function getTreeList() {
   return request.get(`${BASE_SERVICE}/auth/tree/list`)
 }
+
+/**
+ * 获取权限列表
+ * @param {*} payload 
+ * @returns 
+ */
+export function getTableList(payload) {
+  return request.post(`${BASE_SERVICE}/auth/list`, payload)
+}

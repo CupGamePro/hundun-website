@@ -56,7 +56,7 @@
 
 <script setup>
 import { ref, reactive, defineExpose, defineEmits } from 'vue';
-import { createMenu, getCatalogs, updateMenu } from '@/services/menuService';
+import { createMenu, getCatalogs, updateMenu } from '@/services/menu';
 import { ElMessage } from 'element-plus';
 import { cloneDeep } from 'lodash'
 
@@ -222,3 +222,4 @@ defineExpose({
   openDrawer,
 })
 </script>
+@/services/menu

@@ -46,9 +46,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getRoleList, deleteRole } from '@/services/roleService';
+import { deleteRole } from '@/services/role';
 import QueryFilter from './queryFilter.vue';
-import { getTreeList } from '@/services/authService'
+import { getTreeList, getTableList } from '@/services/auth'
 import { Plus } from '@element-plus/icons-vue';
 import CreateRole from './createAuth.vue';
 import { ElMessage } from 'element-plus';
@@ -56,7 +56,7 @@ import { useBaseTable } from '@/hooks/useBaseTable';
 
 const queryFilter = ref();
 const drawer = ref();
-const { pagination, changePage, changeSize, loading, state, handleData } = useBaseTable(getRoleList, queryFilter)
+const { pagination, changePage, changeSize, loading, state, handleData } = useBaseTable(getTableList, queryFilter)
 const treeData = ref([])
 const treeProps = {
   children: 'children',
@@ -64,6 +64,11 @@ const treeProps = {
   label: 'name',
   defaultExpandAll: true,
 }
+
+const handleCreate = () => {
+  if (!drawer.value) return false;
+  drawer.value.openDrawer();
+};
 
 const handleTree = () => {
   getTreeList().then(res => {
@@ -89,9 +94,5 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.table-actions {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
+
 </style>
