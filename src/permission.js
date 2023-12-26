@@ -12,32 +12,36 @@ const commonStore = useCommonStore(store);
 // 白名单路由
 const whiteList = ["/login"];
 
+let hasUserInfo = false;
+
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
   const hasToken = localStorage.getItem("token");
+  console.log(hasToken);
   if (hasToken) {
-    if (to.path === "/login") {
+    if (to.path.includes("/login")) {
       // 如果已登录，跳转首页
       next({ path: "/" });
       NProgress.done();
     } else {
       const hasRoles = commonStore.getCurrentUser();
-      if (hasRoles) {
-        // 未匹配到任何路由，跳转404
-        if (to.matched.length === 0) {
-          from.name ? next({ name: from.name }) : next("/404");
-        } else {
-          next();
-        }
-      } else {
+      if (!hasRoles && !hasUserInfo) {
         commonStore.getUserInfo()
+        hasUserInfo = true
         const menuData = await commonStore.getSysMenus();
         const accessRoutes = await commonStore.generateRoutes(menuData, null);
         commonStore.setMenus(accessRoutes);
         accessRoutes.forEach((route) => {
           router.addRoute('Layout', route);
         });
-        next({ ...to, replace: true });
+        next({ ...to, replace: true, cache: false });
+      } else {
+        // 未匹配到任何路由，跳转404
+        if (to.matched.length === 0) {
+          from.name ? next({ name: from.name }) : next("/404");
+        } else {
+          next();
+        }
       }
     }
   } else {

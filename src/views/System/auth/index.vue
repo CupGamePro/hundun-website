@@ -49,7 +49,6 @@ import { ref, onMounted } from 'vue';
 import { deleteRole } from '@/services/role';
 import QueryFilter from './queryFilter.vue';
 import { getTreeList, getTableList } from '@/services/auth'
-import { Plus } from '@element-plus/icons-vue';
 import CreateRole from './createAuth.vue';
 import { ElMessage } from 'element-plus';
 import { useBaseTable } from '@/hooks/useBaseTable';
