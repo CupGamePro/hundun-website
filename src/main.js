@@ -9,8 +9,7 @@ import "./permission";
 const app = createApp(App)
 
 ELICON(app)
-
-app.use(store)
 app.use(router)
+app.use(store)
 
 app.mount('#app')

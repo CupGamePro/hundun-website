@@ -17,7 +17,6 @@ let hasUserInfo = false;
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
   const hasToken = localStorage.getItem("token");
-  console.log(hasToken);
   if (hasToken) {
     if (to.path.includes("/login")) {
       // 如果已登录，跳转首页
@@ -34,7 +33,7 @@ router.beforeEach(async (to, from, next) => {
         accessRoutes.forEach((route) => {
           router.addRoute('Layout', route);
         });
-        next({ ...to, replace: true, cache: false });
+        next({ ...to, replace: true });
       } else {
         // 未匹配到任何路由，跳转404
         if (to.matched.length === 0) {

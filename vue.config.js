@@ -5,6 +5,7 @@ const {
   ElementPlusResolver
 } = require('unplugin-vue-components/resolvers')
 const { defineConfig } = require("@vue/cli-service");
+const { codeInspectorPlugin } = require('code-inspector-plugin');
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -15,7 +16,7 @@ module.exports = defineConfig({
     port: 5000,
     proxy: {
       '/api': {
-        target: 'http://192.168.2.103:3000',
+        target: 'http://192.168.2.101:3000',
         pathRewrite: {
           '^/api': ''
         },
@@ -43,6 +44,9 @@ module.exports = defineConfig({
       }),
       Components({
         resolvers: [ElementPlusResolver()]
+      }),
+      codeInspectorPlugin({
+        bundler: 'webpack',
       })
     ]
   }

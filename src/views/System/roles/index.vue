@@ -2,7 +2,7 @@
   <QueryFilter ref="queryFilter" @loadData="handleData"></QueryFilter>
   <PageCard class="table-page-card">
     <div class="table-actions">
-      <el-button type="primary" :icon="Plus" @click="handleCreate">添加</el-button>
+      <el-button type="primary" icon="Plus" @click="handleCreate">添加</el-button>
     </div>
     <div class="table-box">
       <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" border v-loading="loading" show-overflow-tooltip>
@@ -10,7 +10,7 @@
         <el-table-column prop="name" label="角色名称" />
         <el-table-column prop="code" label="角色编号" />
         <el-table-column prop="description" label="描述" />
-        <el-table-column prop="createBy" label="创建人" />
+        <el-table-column prop="createdBy" label="创建人" />
         <el-table-column prop="updateTime" label="更新时间" />
         <el-table-column prop="status" label="启用/禁用" width="100px" align="center">
           <template #default="scope">

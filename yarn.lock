@@ -450,10 +450,20 @@
   resolved "https://registry.npmmirror.com/@babel/helper-string-parser/-/helper-string-parser-7.19.4.tgz"
   integrity sha512-nHtDoQcuqFmwYNYPz3Rah5ph2p8PFeFCsZk9A/48dPc/rGocJ5J3hAAZ7pb76VWX3fZKu+uEr/FhH5jLx7umrw==
 
+"@babel/helper-string-parser@^7.24.8":
+  version "7.24.8"
+  resolved "https://registry.npmmirror.com/@babel/helper-string-parser/-/helper-string-parser-7.24.8.tgz#5b3329c9a58803d5df425e5785865881a81ca48d"
+  integrity sha512-pO9KhhRcuUyGnJWwyEgnRJTSIZHiT+vMD0kPeD+so0l7mxkMT19g3pjY9GTnHySck/hDzq+dtW/4VgnMkippsQ==
+
 "@babel/helper-validator-identifier@^7.18.6", "@babel/helper-validator-identifier@^7.19.1":
   version "7.19.1"
   resolved "https://registry.npmmirror.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.19.1.tgz"
   integrity sha512-awrNfaMtnHUr653GgGEs++LlAvW6w+DcPrOliSMXWCKo597CwL5Acf/wWdNkf/tfEQE3mjkeD1YOVZOUV/od1w==
+
+"@babel/helper-validator-identifier@^7.24.7":
+  version "7.24.7"
+  resolved "https://registry.npmmirror.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.24.7.tgz#75b889cfaf9e35c2aaf42cf0d72c8e91719251db"
+  integrity sha512-rR+PBcQ1SMQDDyF6X0wxtG8QyLCgUB0eRAGguqRLfkCA87l7yAP7ehq8SNj96OOGTO8OBV70KhuFYcIkHXOg0w==
 
 "@babel/helper-validator-option@^7.18.6":
   version "7.18.6"
@@ -492,6 +502,13 @@
   version "7.20.15"
   resolved "https://registry.npmmirror.com/@babel/parser/-/parser-7.20.15.tgz"
   integrity sha512-DI4a1oZuf8wC+oAJA9RW6ga3Zbe8RZFt7kD9i4qAspz3I/yHet1VvC3DiSy/fsUvv5pvJuNPh0LPOdCcqinDPg==
+
+"@babel/parser@^7.24.7":
+  version "7.25.3"
+  resolved "https://registry.npmmirror.com/@babel/parser/-/parser-7.25.3.tgz#91fb126768d944966263f0657ab222a642b82065"
+  integrity sha512-iLTJKDbJ4hMvFPgQwwsVoxtHyWpKKPBrxkANrSYewDPaPpT5py5yeVkgPIJ7XYXhndxJpaA3PyALSXQ7u8e/Dw==
+  dependencies:
+    "@babel/types" "^7.25.2"
 
 "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@^7.18.6":
   version "7.18.6"
@@ -1167,6 +1184,15 @@
   dependencies:
     "@babel/helper-string-parser" "^7.19.4"
     "@babel/helper-validator-identifier" "^7.19.1"
+    to-fast-properties "^2.0.0"
+
+"@babel/types@^7.25.2":
+  version "7.25.2"
+  resolved "https://registry.npmmirror.com/@babel/types/-/types-7.25.2.tgz#55fb231f7dc958cd69ea141a4c2997e819646125"
+  integrity sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==
+  dependencies:
+    "@babel/helper-string-parser" "^7.24.8"
+    "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
 "@ctrl/tinycolor@^3.4.1":
@@ -2078,6 +2104,17 @@
     estree-walker "^2.0.2"
     source-map "^0.6.1"
 
+"@vue/compiler-core@3.4.35":
+  version "3.4.35"
+  resolved "https://registry.npmmirror.com/@vue/compiler-core/-/compiler-core-3.4.35.tgz#421922a75ecabf1aabc6b7a2ce98b5acb2fc2d65"
+  integrity sha512-gKp0zGoLnMYtw4uS/SJRRO7rsVggLjvot3mcctlMXunYNsX+aRJDqqw/lV5/gHK91nvaAAlWFgdVl020AW1Prg==
+  dependencies:
+    "@babel/parser" "^7.24.7"
+    "@vue/shared" "3.4.35"
+    entities "^4.5.0"
+    estree-walker "^2.0.2"
+    source-map-js "^1.2.0"
+
 "@vue/compiler-dom@3.2.47":
   version "3.2.47"
   resolved "https://registry.npmmirror.com/@vue/compiler-dom/-/compiler-dom-3.2.47.tgz"
@@ -2085,6 +2122,14 @@
   dependencies:
     "@vue/compiler-core" "3.2.47"
     "@vue/shared" "3.2.47"
+
+"@vue/compiler-dom@^3.2.47":
+  version "3.4.35"
+  resolved "https://registry.npmmirror.com/@vue/compiler-dom/-/compiler-dom-3.4.35.tgz#cd0881f1b4ed655cd96367bce4845f87023a5a2d"
+  integrity sha512-pWIZRL76/oE/VMhdv/ovZfmuooEni6JPG1BFe7oLk5DZRo/ImydXijoZl/4kh2406boRQ7lxTYzbZEEXEhj9NQ==
+  dependencies:
+    "@vue/compiler-core" "3.4.35"
+    "@vue/shared" "3.4.35"
 
 "@vue/compiler-sfc@3.2.47":
   version "3.2.47"
@@ -2178,6 +2223,11 @@
   version "3.2.47"
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.2.47.tgz"
   integrity sha512-BHGyyGN3Q97EZx0taMQ+OLNuZcW3d37ZEVmEAyeoA9ERdGvm9Irc/0Fua8SNyOtV1w6BS4q25wbMzJujO9HIfQ==
+
+"@vue/shared@3.4.35":
+  version "3.4.35"
+  resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.4.35.tgz#5432f4b1c79e763fcf78cc830faf59ff01248968"
+  integrity sha512-hvuhBYYDe+b1G8KHxsQ0diDqDMA8D9laxWZhNAjE83VZb5UDaXl9Xnz7cGdDSyiHM90qqI/CyGMcpBpiDy6VVQ==
 
 "@vue/vue-loader-v15@npm:vue-loader@^15.9.7":
   version "15.10.1"
@@ -2807,6 +2857,14 @@ case-sensitive-paths-webpack-plugin@^2.3.0:
   resolved "https://registry.npmmirror.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.4.0.tgz"
   integrity sha512-roIFONhcxog0JSSWbvVAh3OocukmSgpqOH6YpMkCvav/ySIV3JKg4Dc8vYtQjYi/UxpNE36r/9v+VqTQqgkYmw==
 
+chalk@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npmmirror.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
+  integrity sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@^2.0.0, chalk@^2.1.0:
   version "2.4.2"
   resolved "https://registry.npmmirror.com/chalk/-/chalk-2.4.2.tgz"
@@ -2824,7 +2882,7 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.2:
+chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmmirror.com/chalk/-/chalk-4.1.2.tgz"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -2931,6 +2989,26 @@ clone@^2.1.1:
   version "2.1.2"
   resolved "https://registry.npmmirror.com/clone/-/clone-2.1.2.tgz"
   integrity sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==
+
+code-inspector-core@0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/code-inspector-core/-/code-inspector-core-0.15.2.tgz#ca7516fa3e620578eaf85b3ab1b00bb4763ff09e"
+  integrity sha512-zwILSrINm/MISLJKSxrptcKR1Pq0lKjwxRgrl3SKzcSL3qoPhOmEjd0kZh59vGLHIWoW+pO4jpaquvOfvQ8xkg==
+  dependencies:
+    "@vue/compiler-dom" "^3.2.47"
+    chalk "^4.1.1"
+    portfinder "^1.0.28"
+
+code-inspector-plugin@^0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/code-inspector-plugin/-/code-inspector-plugin-0.15.2.tgz#72a2b6c74f32e4a7401b86df38687963b7ac4a4d"
+  integrity sha512-FYcXi1sgmgfxq+/rdnAHHF7boAs0HI6ztkmo4BoUkCZPzyFS4+71XJoOs3XDTcs5GPXH4RxQWpX2uMMYamG2qQ==
+  dependencies:
+    chalk "4.1.1"
+    code-inspector-core "0.15.2"
+    esbuild-code-inspector-plugin "0.15.2"
+    vite-code-inspector-plugin "0.15.2"
+    webpack-code-inspector-plugin "0.15.2"
 
 color-convert@^1.9.0:
   version "1.9.3"
@@ -3606,6 +3684,11 @@ entities@^2.0.0:
   resolved "https://registry.npmmirror.com/entities/-/entities-2.2.0.tgz"
   integrity sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==
 
+entities@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npmmirror.com/entities/-/entities-4.5.0.tgz#5d268ea5e7113ec74c4d033b79ea5a35a488fb48"
+  integrity sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==
+
 error-ex@^1.3.1:
   version "1.3.2"
   resolved "https://registry.npmmirror.com/error-ex/-/error-ex-1.3.2.tgz"
@@ -3624,6 +3707,13 @@ es-module-lexer@^0.9.0:
   version "0.9.3"
   resolved "https://registry.npmmirror.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz"
   integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
+
+esbuild-code-inspector-plugin@0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/esbuild-code-inspector-plugin/-/esbuild-code-inspector-plugin-0.15.2.tgz#ff5cb5a50590d6536d81a118d6d56e7ca5a06287"
+  integrity sha512-dr2YgkxiRgH0r2Ra7WARI/3XFHe9QYHCJy53xSnzUeWEl6+uj5Kgl1vYeGUp8yU6SbPmm1paPnUIdyFRtoyKtQ==
+  dependencies:
+    code-inspector-core "0.15.2"
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -5618,11 +5708,6 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   resolved "https://registry.npmmirror.com/picomatch/-/picomatch-2.3.1.tgz"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-pina@^0.20.2204228:
-  version "0.20.2204228"
-  resolved "https://registry.npmmirror.com/pina/-/pina-0.20.2204228.tgz"
-  integrity sha512-osNVZg36DsDAEPHskmnTINhM5APSLsu+y8guYYX65nidbRPmnv/trAoPnacpfh8aCpsowGWR/DAYtQHZyZq8wQ==
-
 pinia@^2.0.20:
   version "2.0.30"
   resolved "https://registry.npmmirror.com/pinia/-/pinia-2.0.30.tgz"
@@ -5661,7 +5746,7 @@ polyline-miter-util@^1.0.1:
   dependencies:
     gl-vec2 "^1.0.0"
 
-portfinder@^1.0.26:
+portfinder@^1.0.26, portfinder@^1.0.28:
   version "1.0.32"
   resolved "https://registry.npmmirror.com/portfinder/-/portfinder-1.0.32.tgz"
   integrity sha512-on2ZJVVDXRADWE6jnQaX0ioEylzgBpQk8r55NE4wjXW1ZxO+BgDlY6DXwj20i0V8eB4SenDQ00WEaxfiIQPcxg==
@@ -6540,6 +6625,11 @@ sortablejs@1.14.0:
   resolved "https://registry.npmmirror.com/source-map-js/-/source-map-js-1.0.2.tgz"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
+source-map-js@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmmirror.com/source-map-js/-/source-map-js-1.2.0.tgz#16b809c162517b5b8c3e7dcd315a2a5c2612b2af"
+  integrity sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==
+
 source-map-support@~0.5.20:
   version "0.5.21"
   resolved "https://registry.npmmirror.com/source-map-support/-/source-map-support-0.5.21.tgz"
@@ -7068,6 +7158,13 @@ viewport-mercator-project@^6.2.1:
     "@babel/runtime" "^7.0.0"
     gl-matrix "^3.0.0"
 
+vite-code-inspector-plugin@0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/vite-code-inspector-plugin/-/vite-code-inspector-plugin-0.15.2.tgz#46f1b7d2a27c2585c6340260a935323ed3d80222"
+  integrity sha512-mSvC1Irgi2JlQm/B5pqk7ki8QQkmmWdhOPyAPJQ5JtXffr23dTFruA1EX7kVN2AySVudCcJitdrJT3EpgFBx0A==
+  dependencies:
+    code-inspector-core "0.15.2"
+
 vt-pbf@^3.1.1:
   version "3.1.3"
   resolved "https://registry.npmmirror.com/vt-pbf/-/vt-pbf-3.1.3.tgz"
@@ -7236,6 +7333,13 @@ webpack-chain@^6.5.1:
   dependencies:
     deepmerge "^1.5.2"
     javascript-stringify "^2.0.1"
+
+webpack-code-inspector-plugin@0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/webpack-code-inspector-plugin/-/webpack-code-inspector-plugin-0.15.2.tgz#b1ffde1fc51a5c59137fa5313bf04ea230b029f9"
+  integrity sha512-tQZHfXGD1pcLQ+8P1zNZ1J11T9IovjTX3nZK8ldS+68zdOWTj87PGBbX95Piir1LgkKLLDDF6VvwMxpUG+7u8w==
+  dependencies:
+    code-inspector-core "0.15.2"
 
 webpack-dev-middleware@^5.3.1:
   version "5.3.3"

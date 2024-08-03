@@ -8,7 +8,7 @@
     </template>
     <template v-slot:table>
       <div class="table-actions">
-        <el-button type="primary" :icon="Plus" @click="handleCreate">添加</el-button>
+        <el-button type="primary" icon="Plus" @click="handleCreate">添加</el-button>
       </div>
       <div class="table-box">
         <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" border v-loading="loading"
