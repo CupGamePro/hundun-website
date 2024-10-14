@@ -12,11 +12,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="form.password" placeholder="请输入密码" type="password"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="姓名" prop="reallyName">
               <el-input v-model="form.reallyName" placeholder="请输入姓名"></el-input>
             </el-form-item>
@@ -24,8 +19,8 @@
           <el-col :span="12">
             <el-form-item label="性别" prop="gender">
               <el-radio-group v-model="form.gender">
-                <el-radio label="male">男</el-radio>
-                <el-radio label="female">女</el-radio>
+                <el-radio value="male">男</el-radio>
+                <el-radio value="female">女</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -97,10 +92,8 @@ import { cloneDeep } from 'lodash'
 
 const drawer = ref(false);
 const formRef = ref()
-const tableRef= ref()
 const form = ref({
   username: '',
-  password: '',
   reallyName: '',
   avatar: '',
   gender: 'male',
@@ -116,13 +109,6 @@ const rules = reactive({
     {
       required: true,
       message: '请输入用户名',
-      trigger: 'blur',
-    },
-  ],
-  password: [
-    {
-      required: true,
-      message: '请输入密码',
       trigger: 'blur',
     },
   ],
@@ -179,7 +165,7 @@ const handleCreate = (params) => {
 }
 
 const handleEdit = (params) => {
-  params.user.uuid = form.value.uuid
+  params.uuid = form.value.uuid
   updateUser(params).then(res => {
     if (res.code && res.code === 200) {
       emit('loadData');
@@ -197,17 +183,14 @@ const submitForm = (formEl) => {
     if (valid) {
       const roleIds = state.tableData.filter(ele => ele.isChecked).map(ele => ele.uuid);
       const params = {
-        user: {
-          username: form.value.username,
-          password: form.value.password,
-          reallyName: form.value.reallyName,
-          avatar: form.value.avatar,
-          gender: form.value.gender,
-          email: form.value.email,
-          phone: form.value.phone,
-          address: form.value.address,
-          status: form.value.status,
-        },
+        username: form.value.username,
+        reallyName: form.value.reallyName,
+        avatar: form.value.avatar,
+        gender: form.value.gender,
+        email: form.value.email,
+        phone: form.value.phone,
+        address: form.value.address,
+        status: form.value.status,
         roleIds,
       }
       if (form.value.uuid) {
@@ -255,7 +238,6 @@ const getRoles = () => {
 const resetForm = () => {
   form.value = {
     username: '',
-    password: '',
     reallyName: '',
     avatar: '',
     gender: 'male',
@@ -289,4 +271,3 @@ defineExpose({
   openDrawer,
 })
 </script>
-@/services/role@/services/user

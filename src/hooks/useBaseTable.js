@@ -33,7 +33,7 @@ export function useBaseTable(api, queryFilter) {
       },
     }
     api(params).then(res => {
-      if (res.code && res.code === 200) {
+      if (res?.code && res.code === 200) {
         state.tableData = res.data.content;
         state.total = res.data.total;
       }

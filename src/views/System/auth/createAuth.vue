@@ -30,30 +30,37 @@
 </template>
 
 <script setup>
-import { ref, reactive, defineExpose, defineEmits } from 'vue';
-import { createRole, updateRole } from '@/services/role';
+import { ref, reactive, defineExpose, defineEmits, defineProps } from 'vue';
+import { createAuth, updateAuth } from '@/services/auth';
 import { ElMessage } from 'element-plus';
 import { cloneDeep } from 'lodash'
 
 const drawer = ref(false);
+const props = defineProps({
+  current: {
+    type: Object,
+    default: () => {},
+  },
+})
 const formRef = ref()
 const form = ref({
   name: '',
   code: '',
+  codePrefix: ''
 });
 
 const rules = reactive({
   name: [
     {
       required: true,
-      message: '请输入角色名称',
+      message: '请输入权限名称',
       trigger: 'blur',
     },
   ],
   code: [
     {
       required: true,
-      message: '请输入角色编码',
+      message: '请输入权限编码',
       trigger: 'blur',
     },
   ],
@@ -63,7 +70,9 @@ const title = ref('添加')
 const emit = defineEmits(['loadData'])
 
 const handleCreate = (params) => {
-  createRole(params).then(res => {
+  params.menuUuid = props.current?.uuid
+  params.code = `${props.current?.code}-${params.code}`
+  createAuth(params).then(res => {
     if (res.code && res.code === 200) {
       emit('loadData');
       closeDrawer();
@@ -76,7 +85,7 @@ const handleCreate = (params) => {
 
 const handleEdit = (params) => {
   params.uuid = form.value.uuid
-  updateRole(params).then(res => {
+  updateAuth(params).then(res => {
     if (res.code && res.code === 200) {
       emit('loadData');
       closeDrawer();
@@ -115,12 +124,11 @@ const resetForm = () => {
 
 const openDrawer = (row) => {
   if (row) {
-    const value = cloneDeep(row);
-    if (row.uuid) {
+    const value = cloneDeep(row);    
+    if (value.uuid) {
       title.value = '编辑';
       form.value = value;
     }
-
   } else {
     resetForm();
   }
@@ -136,4 +144,3 @@ defineExpose({
   openDrawer,
 })
 </script>
-@/services/role

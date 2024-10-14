@@ -42,7 +42,7 @@ service.interceptors.response.use(
       return res;
     }
   },
-  (error) => {
+  (error) => {    
     const { response } = error;
     if (response) {
       if( response.data.code === 401) {
@@ -50,13 +50,12 @@ service.interceptors.response.use(
         localStorage.removeItem('token');
         ElMessage.error('登录已过期，请重新登录');
       } else {
-        ElMessage.error(response.data.message || 'Error');
-        return Promise.reject(response.data);
+        console.log(response.data);
+        return response.data;
       }
     } else {
-
       ElMessage.error(error.message || 'Error');
-      return Promise.reject(error);
+      console.log(error)
     }
   }
 )

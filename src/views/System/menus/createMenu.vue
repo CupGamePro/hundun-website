@@ -7,8 +7,8 @@
       <el-form ref="menuFormRef" :model="menuForm" :rules="rules" label-width="100px">
         <el-form-item label="类别" prop="type">
           <el-radio-group v-model="menuForm.type">
-            <el-radio :label="1">目录</el-radio>
-            <el-radio :label="2">菜单</el-radio>
+            <el-radio :value="1">目录</el-radio>
+            <el-radio :value="2">菜单</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="父级" prop="parentId">
@@ -222,4 +222,3 @@ defineExpose({
   openDrawer,
 })
 </script>
-@/services/menu

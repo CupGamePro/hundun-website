@@ -21,10 +21,10 @@
           </div>
           <div>
             <el-radio-group v-model="form.radio1" @change="change2">
-              <el-radio-button label="New York"></el-radio-button>
-              <el-radio-button label="Washington"></el-radio-button>
-              <el-radio-button label="Los Angeles"></el-radio-button>
-              <el-radio-button label="Chicago"></el-radio-button>
+              <el-radio-button value="1" label="New York"></el-radio-button>
+              <el-radio-button value="2" label="Washington"></el-radio-button>
+              <el-radio-button value="3" label="Los Angeles"></el-radio-button>
+              <el-radio-button value="4" label="Chicago"></el-radio-button>
             </el-radio-group>
           </div>
         </el-space>

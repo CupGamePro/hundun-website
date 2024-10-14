@@ -2,7 +2,7 @@
   <div class="cup-adio-button">
     <el-radio-group v-model="checkedValue" @change="handleClick">
       <el-radio-button
-        :label="item.value"
+        :value="item.value"
         :key="item.value"
         v-for="item in btnArr"
       >{{ item.label }}</el-radio-button>

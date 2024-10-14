@@ -14,9 +14,12 @@ module.exports = defineConfig({
   devServer: {
     hot: true,
     port: 5000,
+    client: {
+      overlay: false
+    },
     proxy: {
       '/api': {
-        target: 'http://192.168.2.101:3000',
+        target: 'http://192.168.2.100:3000',
         pathRewrite: {
           '^/api': ''
         },

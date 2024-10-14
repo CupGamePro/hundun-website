@@ -1,7 +1,7 @@
 <template>
   <TreeTableLayout>
     <template v-slot:tree >
-      <el-tree ref="tree" :data="treeData" :props="treeProps" :default-expand-all="true" node-key="uuid"></el-tree>
+      <el-tree ref="treeRef" :data="treeData" :props="treeProps" :default-expand-all="true" node-key="uuid" :current-node-key="currentNodeKey" highlight-current @node-click="handleNodeClick"></el-tree>
     </template>
     <template v-slot:filter >
       <QueryFilter ref="queryFilter" @loadData="handleData"></QueryFilter>
@@ -14,20 +14,12 @@
         <el-table :data="state.tableData" style="width: 100%; margin-bottom: 20px" border v-loading="loading"
           show-overflow-tooltip>
           <el-table-column type="selection" width="50" />
-          <el-table-column prop="name" label="角色名称" />
-          <el-table-column prop="code" label="角色编号" />
-          <el-table-column prop="description" label="描述" />
-          <el-table-column prop="createBy" label="创建人" />
+          <el-table-column prop="name" label="权限名称" />
+          <el-table-column prop="code" label="权限编码" />
+          <el-table-column prop="createdBy" label="创建人" />
           <el-table-column prop="updateTime" label="更新时间" />
-          <el-table-column prop="status" label="启用/禁用" width="100px" align="center">
-            <template #default="scope">
-              <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small"
-                @change="handleStatusChange(scope.row)"></el-switch>
-            </template>
-          </el-table-column>
           <el-table-column label="操作" width="280px">
             <template #default="scope">
-              <el-button type="primary" text @click="handleEdit(scope.row)" size="small">分配权限</el-button>
               <el-button type="primary" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
               <el-button type="danger" text @click="handleDelete(scope.row)" size="small">删除</el-button>
             </template>
@@ -41,15 +33,14 @@
       </div>
     </template>
   </TreeTableLayout>
-  <create-role ref="drawer" @loadData="handleData" />
+  <create-auth ref="drawer" @loadData="handleData" :current="currentNode" />
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { deleteRole } from '@/services/role';
+import { ref, onMounted, nextTick } from 'vue';
 import QueryFilter from './queryFilter.vue';
-import { getTreeList, getTableList } from '@/services/auth'
-import CreateRole from './createAuth.vue';
+import { getTreeList, getTableList, deleteAuth } from '@/services/auth'
+import CreateAuth from './createAuth.vue';
 import { ElMessage } from 'element-plus';
 import { useBaseTable } from '@/hooks/useBaseTable';
 
@@ -63,6 +54,8 @@ const treeProps = {
   label: 'name',
   defaultExpandAll: true,
 }
+const currentNodeKey = ref(null)
+const currentNode = ref(null)
 
 const handleCreate = () => {
   if (!drawer.value) return false;
@@ -72,14 +65,26 @@ const handleCreate = () => {
 const handleTree = () => {
   getTreeList().then(res => {
     if (res.success) {
-      treeData.value = res.data
+      const result = res.data || []
+      treeData.value = result 
+      nextTick(() => {
+        if (result.length > 0) {
+          handleNodeClick(result[0])
+        }
+      })
     }
   })
 }
-handleTree()
+
+const handleNodeClick = (data) => {
+  currentNodeKey.value = data.uuid
+  currentNode.value = data
+  queryFilter.value.menuUuid = data.uuid
+  handleData()
+}
 
 const handleDelete = row => {
-  deleteRole(row.uuid).then(res => {
+  deleteAuth(row.uuid).then(res => {
     if (res.code === 200) {
       ElMessage.success('删除成功');
       handleData();
@@ -87,9 +92,14 @@ const handleDelete = row => {
   })
 };
 
+const handleEdit = row => {
+  if (!drawer.value) return false;
+ drawer.value.openDrawer(row);
+};
+
 onMounted(() => {
-  handleData();
-});
+  handleTree()
+})
 </script>
 
 <style lang="scss" scoped>

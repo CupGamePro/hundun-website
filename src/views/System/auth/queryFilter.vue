@@ -3,17 +3,11 @@
     <div class="query-filter-box">
       <div class="query-form">
         <el-form :inline="true" ref="formRef" :model="formItem" class="demo-form-inline" label-width="70px">
-          <el-form-item label="角色名称" prop="name">
-            <el-input v-model="formItem.name" placeholder="请输入用户名"></el-input>
+          <el-form-item label="权限名称" prop="name">
+            <el-input v-model="formItem.name" placeholder="请输入权限名称"></el-input>
           </el-form-item>
-          <el-form-item label="角色编号" prop="code">
-            <el-input v-model="formItem.code" placeholder="请输入编号"></el-input>
-          </el-form-item>
-          <el-form-item label="状态" prop="status">
-            <el-select v-model="formItem.status" placeholder="状态">
-              <el-option label="启用" :value="1"></el-option>
-              <el-option label="禁用" :value="2"></el-option>
-            </el-select>
+          <el-form-item label="权限编码" prop="code">
+            <el-input v-model="formItem.code" placeholder="请输入权限编码"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -33,8 +27,7 @@ const formRef = ref()
 
 const formItem = reactive({
   name: '',
-  code: '',
-  status: '',
+  code: ''
 })
 
 const emit = defineEmits(['loadData'])

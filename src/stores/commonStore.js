@@ -3,6 +3,7 @@ import { login, getInfo, getMenus } from '@/services/login'
 import { ElMessage } from 'element-plus';
 import BlockLayout from '@/layout/BlockLayout.vue';
 import { resetRouter } from "@/router";
+import { reject } from 'lodash';
 
 export const useCommonStore = defineStore({
   id: 'app-common',
@@ -36,8 +37,9 @@ export const useCommonStore = defineStore({
           if (res.success) {
             this.setToken(res.data.token || '')
             resolve(res.data)
-          } else {
+          } else {            
             ElMessage.error(res.message)
+            reject(res.message)
           }
         })
       })
