@@ -9,7 +9,7 @@
           <el-form-item label="工号" prop="code">
             <el-input v-model="formItem.code" placeholder="请输入工号"></el-input>
           </el-form-item>
-          <el-form-item label="状态" prop="status">
+          <el-form-item label="状态" prop="status" style="width: 250px;">
             <el-select v-model="formItem.status" placeholder="状态">
               <el-option label="启用" :value="1"></el-option>
               <el-option label="禁用" :value="2"></el-option>

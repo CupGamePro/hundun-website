@@ -21,6 +21,14 @@ export function getRoleList(payload) {
 }
 
 /**
+ * @description: 角色列表不分页
+ * @return {Promise} 
+ */
+export function findAllByNoPage() {
+  return request.get(`${BASE_SERVICE}/roles/findAllByNoPage`)
+}
+
+/**
  * @description: 角色新增
  * @params {RoleModelType} payload
  * @return {Promise}

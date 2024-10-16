@@ -60,5 +60,12 @@ export default defineConfig({
   },  
   optimizeDeps: {  
     include: ['element-plus'], // 如果需要预构建依赖  
-  },  
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler' // or "modern", "legacy"
+      },
+    },
+  },
 });

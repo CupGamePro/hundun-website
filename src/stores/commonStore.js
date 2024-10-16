@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import { login, getInfo, getMenus } from '@/services/login'
+import { login, getInfo, getMenus } from '../services/login'
 import { ElMessage } from 'element-plus';
-import BlockLayout from '@/layout/BlockLayout.vue';
-import { resetRouter } from "@/router";
+import BlockLayout from '../layout/BlockLayout.vue';
+import { resetRouter } from "../router";
 import { reject } from 'lodash';
 
 export const useCommonStore = defineStore({
@@ -74,7 +74,7 @@ export const useCommonStore = defineStore({
       const routes = [];
       menuData.forEach((item) => {
         const path = parent ? parent.path + item.path : item.path;
-        const component = item.type === 1 ? BlockLayout : () => import('@/views' + item.component + '.vue');
+        const component = item.type === 1 ? BlockLayout : () => import(/* @vite-ignore */'../views' + item.component + '.vue');
         const rou = {
           path,
           name: item.code,

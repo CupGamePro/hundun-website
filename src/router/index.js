@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '@/layout'
+import Layout from '../layout/index.vue'
 
 export const constantRoutes = [
   {
@@ -29,7 +29,7 @@ export const constantRoutes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes: constantRoutes
 })
 
