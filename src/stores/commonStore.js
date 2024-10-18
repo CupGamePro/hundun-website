@@ -2,8 +2,7 @@ import { defineStore } from 'pinia'
 import { login, getInfo, getMenus } from '../services/login'
 import { ElMessage } from 'element-plus';
 import BlockLayout from '../layout/BlockLayout.vue';
-import { resetRouter } from "../router";
-import { reject } from 'lodash';
+import { resetRouter, initRouter } from "../router";
 
 export const useCommonStore = defineStore({
   id: 'app-common',
@@ -32,16 +31,14 @@ export const useCommonStore = defineStore({
       return this.token
     },
     loginAction(payload) {
-      return new Promise(resolve => {
-        login(payload).then(res => {
-          if (res.success) {
-            this.setToken(res.data.token || '')
-            resolve(res.data)
-          } else {            
-            ElMessage.error(res.message)
-            reject(res.message)
-          }
-        })
+      login(payload).then(res => {
+        if (res.success) {
+          this.setToken(res.data.token || '')
+          initRouter();
+          ElMessage.success(res.message)
+        } else {            
+          ElMessage.error(res.message)
+        }
       })
     },
     getUserInfo() {

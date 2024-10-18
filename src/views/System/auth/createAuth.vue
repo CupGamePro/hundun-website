@@ -7,6 +7,11 @@
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-row>
           <el-col :span="24">
+            <el-form-item label="菜单名称" prop="menuName">
+              <el-input v-model="current.name" placeholder="请输入菜单名称" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
             <el-form-item label="权限名称" prop="name">
               <el-input v-model="form.name" placeholder="请输入角色名称"></el-input>
             </el-form-item>
@@ -45,8 +50,7 @@ const props = defineProps({
 const formRef = ref()
 const form = ref({
   name: '',
-  code: '',
-  codePrefix: ''
+  code: ''
 });
 
 const rules = reactive({

@@ -19,7 +19,7 @@
         </el-table-column>
         <el-table-column label="操作" width="280px">
           <template #default="scope">
-            <el-button type="primary" text @click="handleEdit(scope.row)" size="small">分配权限</el-button>
+            <el-button type="primary" text @click="handlePower(scope.row)" size="small">分配权限</el-button>
             <el-button type="primary" text @click="handleEdit(scope.row)" size="small">编辑</el-button>
             <el-button type="danger" text @click="handleDelete(scope.row)" size="small">删除</el-button>
           </template>
@@ -33,6 +33,7 @@
     </div>
   </PageCard>
   <create-role ref="drawer" @loadData="handleData" />
+  <PowerAuth ref="powerAuth" @loadData="handleData" />
 </template>
 
 <script setup>
@@ -42,9 +43,11 @@ import { getRoleList, deleteRole, updateStatus } from '@/services/role';
 import CreateRole from './createRole.vue';
 import { ElMessage } from 'element-plus';
 import { useBaseTable } from '@/hooks/useBaseTable';
+import PowerAuth from './PowerAuth.vue';
 
 const queryFilter = ref();
 const drawer = ref();
+const powerAuth = ref();
 const { pagination, changePage, changeSize, loading, state, handleData } = useBaseTable(getRoleList, queryFilter)
 
 const handleCreate = (row) => {
@@ -68,6 +71,11 @@ const handleEdit = row => {
   if (!drawer.value) return false;
  drawer.value.openDrawer(row);
 };
+
+const handlePower = row => {
+  if (!powerAuth.value) return false;
+  powerAuth.value.openDrawer(row);
+}
 
 const handleStatusChange = row => {
   updateStatus(row.uuid, row.status).then(res => {

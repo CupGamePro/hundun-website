@@ -77,10 +77,12 @@ const handleTree = () => {
 }
 
 const handleNodeClick = (data) => {
-  currentNodeKey.value = data.uuid
-  currentNode.value = data
-  queryFilter.value.menuUuid = data.uuid
-  handleData()
+  if (data.type === 2) {
+    currentNodeKey.value = data.uuid
+    currentNode.value = data
+    queryFilter.value.menuUuid = data.uuid
+    handleData()
+  }
 }
 
 const handleDelete = row => {

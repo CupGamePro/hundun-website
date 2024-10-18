@@ -63,3 +63,32 @@ export function updateStatus(uuid, status) {
 export function deleteRole(uuid) {
   return request.delete(`${BASE_SERVICE}/roles/${uuid}`)
 }
+
+/**
+ * @description: 获取权限树
+ * @return {Promise}
+ */
+export function getAuthTree() {
+  const params = {
+    hasAuth: true
+  }
+  return request.post(`${BASE_SERVICE}/roles/authTree`, params)
+}
+
+/**
+ * @description: 权限授权
+ * @params {RoleModelType} payload
+ * @return {Promise}
+ */
+export function powerAuth(payload) {
+  return request.post(`${BASE_SERVICE}/roles/powerAuth`, payload)
+}
+
+/**
+ * @description: 获取当前角色权限
+ * @params {string} uuid
+ * @return {Promise}
+ */
+export function getAuthByRole(uuid) {
+  return request.get(`${BASE_SERVICE}/roles/getAuthByRole/${uuid}`)
+}

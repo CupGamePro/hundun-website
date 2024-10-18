@@ -25,10 +25,6 @@
 <script setup>
 import { ref } from "vue";
 import { useCommonStore } from '@/stores/commonStore'
-import { useRouter } from 'vue-router';
-import { ElMessage } from 'element-plus'
-
-const router = useRouter()
 const commonStore = useCommonStore()
 
 const state = ref({
@@ -37,10 +33,7 @@ const state = ref({
 })
 
 const onSubmit = () => {
-  commonStore.loginAction(state.value).then((res) => {
-    ElMessage.success(res.message)
-    router.push('/home')
-  })
+  commonStore.loginAction(state.value)
 }
 </script>
 <style scoped>

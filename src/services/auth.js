@@ -8,7 +8,10 @@ const BASE_SERVICE = '/plat-service';
  * @returns 
  */
 export function getTreeList() {
-  return request.get(`${BASE_SERVICE}/auth/tree/list`)
+  const params = {
+    hasAuth: false
+  }
+  return request.post(`${BASE_SERVICE}/roles/authTree`, params)
 }
 
 /**

@@ -40,4 +40,8 @@ export function resetRouter() {
   router.replace({ path: "/login" });
 }
 
+export function initRouter() {
+  router.replace({ path: "/" });
+}
+
 export default router
