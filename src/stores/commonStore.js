@@ -42,11 +42,15 @@ export const useCommonStore = defineStore({
       })
     },
     getUserInfo() {
-      getInfo().then(res => {
-        if (res.success) {
-          this.userInfo = res.data;
-        }
-      })
+      return new Promise((resolve, reject) => {
+        getInfo().then(({ data }) => {
+          this.userInfo = data;
+          resolve(data);
+        })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
     getSysMenus() {
       return new Promise((resolve, reject) => {
@@ -59,7 +63,9 @@ export const useCommonStore = defineStore({
       });
     },
     getCurrentUser() {
-      return this.userInfo
+      return new Promise((resolve, reject) => {
+        resolve(this.userInfo);
+      })
     },
     /**
    * 生成动态路由

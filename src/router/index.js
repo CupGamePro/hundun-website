@@ -41,7 +41,7 @@ export function resetRouter() {
 }
 
 export function initRouter() {
-  router.replace({ path: "/" });
+  router.push({ path: "/" });
 }
 
 export default router

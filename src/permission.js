@@ -23,9 +23,9 @@ router.beforeEach(async (to, from, next) => {
       next({ path: "/" });
       NProgress.done();
     } else {
-      const hasRoles = commonStore.getCurrentUser();
-      if (!hasRoles && !hasUserInfo) {
-        commonStore.getUserInfo()
+      const hasUser = await commonStore.getCurrentUser();
+      if (!hasUser && !hasUserInfo) {
+        await commonStore.getUserInfo()
         hasUserInfo = true
         const menuData = await commonStore.getSysMenus();
         const accessRoutes = await commonStore.generateRoutes(menuData, null);

@@ -1,18 +1,20 @@
 <template>
   <el-dialog v-model="drawer" :show-close="false" @close="closeDrawer" title="分配权限">
-    <div>
-      <div class="first-level-auth" v-for="item in treeData">
+    <div class="power-auth">
+      <div v-for="item in treeData" style="flex: 1 1 calc(33.333% - 20px); /* Adjust the -20px to match your margin */  ">
         <el-checkbox v-model="item.isChecked" :label="item.name" @change="handleCheckboxChange(item)"
           :indeterminate="item.indeterminate" :style="checkStyle(item)" />
-        <div class="second-level-auth" v-for="secondItem in item.children">
-          <el-checkbox v-model="secondItem.isChecked" :label="secondItem.name"
-            @change="handleCheckboxChange(secondItem)" :indeterminate="secondItem.indeterminate"
-            :style="checkStyle(secondItem)" />
-          <div class="third-level-auth" v-if="secondItem.children.length > 0">
-            <div v-for="thirdItem in secondItem.children" style="margin-right: 20px">
-              <el-checkbox v-model="thirdItem.isChecked" :label="thirdItem.name"
-                @change="handleCheckboxChange(thirdItem)" :indeterminate="thirdItem.indeterminate"
-                :style="checkStyle(thirdItem)" />
+        <div class="first-level-auth">
+          <div class="second-level-auth" v-for="secondItem in item.children">
+            <el-checkbox v-model="secondItem.isChecked" :label="secondItem.name"
+              @change="handleCheckboxChange(secondItem)" :indeterminate="secondItem.indeterminate"
+              :style="checkStyle(secondItem)" />
+            <div class="third-level-auth" v-if="secondItem.children.length > 0">
+              <div v-for="thirdItem in secondItem.children" style="margin-right: 20px">
+                <el-checkbox v-model="thirdItem.isChecked" :label="thirdItem.name"
+                  @change="handleCheckboxChange(thirdItem)" :indeterminate="thirdItem.indeterminate"
+                  :style="checkStyle(thirdItem)" />
+              </div>
             </div>
           </div>
         </div>
@@ -29,7 +31,7 @@
 
 <script setup>
 import { ref, reactive, defineExpose, defineEmits } from 'vue';
-import { powerAuth, getAuthTree } from '@/services/role';
+import { powerAuth, getAuthTree, getAuthByRole } from '@/services/role';
 import { ElMessage } from 'element-plus';
 import { cloneDeep } from 'lodash'
 import { flattenTree } from './flatTree.js';
@@ -38,12 +40,12 @@ import { computed } from 'vue';
 const drawer = ref(false);
 const currentRow = ref(null)
 const treeData = ref([])
+const authsList = ref([])
 const auth = reactive({
   auths: null,
-  authList: []
 })
 
-const { auths, authList } = toRefs(auth)
+const { auths } = toRefs(auth)
 const emit = defineEmits(['loadData'])
 
 const checkStyle = computed(() => (item) => {
@@ -90,11 +92,17 @@ const handleCheckboxChange = (checkbox) => {
 
 // 初始化复选框时设置parent属性  
 const setCheckboxParents = (checkboxes) => {
+  console.log(authsList.value);
+  console.log(checkboxes);
+  
+  
   checkboxes.forEach(checkbox => {
     checkbox.isChecked = false;
     checkbox.indeterminate = false;
     auths[checkbox.uuid] = checkbox;
-    if (authList.includes(checkbox.uuid)) {
+    console.log(authsList.value.includes(checkbox.uuid));
+    
+    if (authsList.value.includes(checkbox.uuid)) {
       checkbox.isChecked = true;
       checkbox.indeterminate = false;
       handleCheckboxChange(checkbox)
@@ -109,13 +117,16 @@ const loadAuthTree = async () => {
   const res = await getAuthTree();
   if (res.success) {
     treeData.value = res.data || [];
+    getAuths()
   }
 };
 
 const getAuths = () => {
-  getAuthByRole().then(res => {
+  getAuthByRole(currentRow.value.uuid).then(res => {
     if (res.success) {
-      authList = res.data || [];
+      console.log(res.data);
+      
+      authsList.value = res.data || [];
       setCheckboxParents(treeData.value);
     }
   })
@@ -123,8 +134,11 @@ const getAuths = () => {
 
 const submit = () => {
   const flatArr = flattenTree(treeData.value) || [];
-  console.log(flatArr.filter(item => item.isChecked || item.indeterminate));
-  const params = flatArr.filter(item => item.isChecked || item.indeterminate).map(item => item.uuid);
+  const auths = flatArr.filter(item => item.isChecked || item.indeterminate).map(item => item.uuid);
+  const params = {
+    roleUuid: currentRow.value.uuid,
+    authList: auths
+  }
   powerAuth(params).then(res => {
     if (res.success) {
       emit('loadData');
@@ -140,7 +154,6 @@ const openDrawer = (row) => {
   currentRow.value = cloneDeep(row);
   drawer.value = true;
   loadAuthTree();
-  getAuths();
 }
 
 const closeDrawer = () => {
@@ -153,8 +166,19 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
+.power-auth {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.first-level-auth {
+  min-height: 100px;
+  border: 1px solid var(--el-border-color);
+  border-radius: 4px;
+  margin: 0 16px 20px 0;
+  padding: 8px 10px;
+}
 .second-level-auth {
-  margin-left: 20px;
 }
 
 .third-level-auth {

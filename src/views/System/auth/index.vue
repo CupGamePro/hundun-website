@@ -58,7 +58,7 @@ const currentNodeKey = ref(null)
 const currentNode = ref(null)
 
 const handleCreate = () => {
-  if (!drawer.value) return false;
+  if (!drawer.value || !currentNode.value) {return false};
   drawer.value.openDrawer();
 };
 
@@ -82,6 +82,10 @@ const handleNodeClick = (data) => {
     currentNode.value = data
     queryFilter.value.menuUuid = data.uuid
     handleData()
+  } else {
+    currentNodeKey.value = null
+    currentNode.value = null
+    queryFilter.value.menuUuid = null
   }
 }
 
